@@ -1,9 +1,9 @@
-[gd_scene load_steps=24 format=1]
+[gd_scene load_steps=23 format=1]
 
 [ext_resource path="res://game/game.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/kenvector_future.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/safe_zone.png" type="Texture" id=3]
-[ext_resource path="res://assets/shield_bar.png" type="Texture" id=4]
+[ext_resource path="res://assets/misc/safe_zone.png" type="Texture" id=3]
+[ext_resource path="res://assets/misc/shield_bar.png" type="Texture" id=4]
 [ext_resource path="res://assets/sounds/asteroid_explode1.wav" type="Sample" id=5]
 [ext_resource path="res://assets/sounds/asteroid_explode2.wav" type="Sample" id=6]
 [ext_resource path="res://assets/sounds/asteroid_explode3.wav" type="Sample" id=7]
@@ -13,19 +13,15 @@
 [ext_resource path="res://assets/sounds/pressed.wav" type="Sample" id=11]
 [ext_resource path="res://assets/sounds/start.wav" type="Sample" id=12]
 [ext_resource path="res://assets/sounds/started.wav" type="Sample" id=13]
-[ext_resource path="res://game/pause_panel.gd" type="Script" id=14]
+[ext_resource path="res://main/theme.tres" type="Theme" id=14]
+[ext_resource path="res://game/pause_panel.gd" type="Script" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 
 font/size = 14
-font/use_mipmaps = false
-font/use_filter = false
+font/use_mipmaps = true
+font/use_filter = true
 font/font = ExtResource( 2 )
-
-[sub_resource type="ColorRamp" id=2]
-
-offsets = FloatArray( 0, 0.266447, 0.536184 )
-colors = ColorArray( 1, 1, 1, 1, 0.666667, 0.47451, 0.258824, 1, 0.513726, 0.376471, 0.286275, 1 )
 
 [sub_resource type="ColorRamp" id=3]
 
@@ -45,8 +41,8 @@ colors = ColorArray( 0.347672, 0.425794, 0.847656, 0.784314, 0.886719, 0.610702,
 [sub_resource type="DynamicFont" id=6]
 
 font/size = 14
-font/use_mipmaps = false
-font/use_filter = false
+font/use_mipmaps = true
+font/use_filter = true
 font/font = ExtResource( 2 )
 
 [sub_resource type="SampleLibrary" id=7]
@@ -109,15 +105,8 @@ samples/started = {
 [sub_resource type="DynamicFont" id=8]
 
 font/size = 48
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=9]
-
-font/size = 16
-font/use_mipmaps = false
-font/use_filter = false
+font/use_mipmaps = true
+font/use_filter = true
 font/font = ExtResource( 2 )
 
 [node name="game" type="Node"]
@@ -226,8 +215,7 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 randomness/linear_velocity = 0.5
-color/color = Color( 0.996094, 0.996094, 0.996094, 0.501961 )
-color/color_ramp = SubResource( 2 )
+color/color = Color( 0.47451, 0.337255, 0.211765, 0.501961 )
 
 [node name="player_explosion1" type="Particles2D" parent="."]
 
@@ -328,7 +316,6 @@ modulate = Color( 0.203584, 0.847656, 0.149002, 1 )
 
 [node name="hud" type="CanvasLayer" parent="."]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -511,11 +498,12 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+theme/theme = ExtResource( 14 )
 margin/left = 390.0
 margin/top = 250.0
 margin/right = 890.0
 margin/bottom = 470.0
-script/script = ExtResource( 14 )
+script/script = ExtResource( 15 )
 
 [node name="paused" type="Label" parent="pause_panel"]
 
@@ -545,7 +533,6 @@ margin/left = 25.0
 margin/top = 136.0
 margin/right = 235.0
 margin/bottom = 188.0
-custom_fonts/font = SubResource( 9 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -562,7 +549,6 @@ margin/left = 265.0
 margin/top = 136.0
 margin/right = 475.0
 margin/bottom = 188.0
-custom_fonts/font = SubResource( 9 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

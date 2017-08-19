@@ -1,14 +1,14 @@
 [gd_scene load_steps=27 format=1]
 
 [ext_resource path="res://game/player_factory.gd" type="Script" id=1]
-[ext_resource path="res://assets/shield.png" type="Texture" id=2]
+[ext_resource path="res://assets/players/shield.png" type="Texture" id=2]
 [ext_resource path="res://assets/sounds/player_shoot1.wav" type="Sample" id=3]
 [ext_resource path="res://assets/sounds/player_shoot2.wav" type="Sample" id=4]
 [ext_resource path="res://assets/sounds/player_shoot3.wav" type="Sample" id=5]
 [ext_resource path="res://game/player.gd" type="Script" id=6]
-[ext_resource path="res://assets/player_light.png" type="Texture" id=7]
-[ext_resource path="res://assets/player_medium.png" type="Texture" id=8]
-[ext_resource path="res://assets/player_heavy.png" type="Texture" id=9]
+[ext_resource path="res://assets/players/player_light.png" type="Texture" id=7]
+[ext_resource path="res://assets/players/player_medium.png" type="Texture" id=8]
+[ext_resource path="res://assets/players/player_heavy.png" type="Texture" id=9]
 
 [sub_resource type="SampleLibrary" id=1]
 

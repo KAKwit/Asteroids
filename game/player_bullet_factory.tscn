@@ -2,9 +2,9 @@
 
 [ext_resource path="res://game/player_bullet_factory.gd" type="Script" id=1]
 [ext_resource path="res://game/player_bullet.gd" type="Script" id=2]
-[ext_resource path="res://assets/bullet_light.png" type="Texture" id=3]
-[ext_resource path="res://assets/bullet_medium.png" type="Texture" id=4]
-[ext_resource path="res://assets/bullet_heavy.png" type="Texture" id=5]
+[ext_resource path="res://assets/bullets/bullet_light.png" type="Texture" id=3]
+[ext_resource path="res://assets/bullets/bullet_medium.png" type="Texture" id=4]
+[ext_resource path="res://assets/bullets/bullet_heavy.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 

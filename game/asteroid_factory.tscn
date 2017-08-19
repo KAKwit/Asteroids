@@ -5,16 +5,16 @@
 [ext_resource path="res://assets/sounds/asteroid_hit2.wav" type="Sample" id=3]
 [ext_resource path="res://assets/sounds/asteroid_hit3.wav" type="Sample" id=4]
 [ext_resource path="res://game/asteroid.gd" type="Script" id=5]
-[ext_resource path="res://assets/meteorBrown_big1.png" type="Texture" id=6]
-[ext_resource path="res://assets/meteorBrown_big2.png" type="Texture" id=7]
-[ext_resource path="res://assets/meteorBrown_big3.png" type="Texture" id=8]
-[ext_resource path="res://assets/meteorBrown_big4.png" type="Texture" id=9]
-[ext_resource path="res://assets/meteorBrown_med1.png" type="Texture" id=10]
-[ext_resource path="res://assets/meteorBrown_med2.png" type="Texture" id=11]
-[ext_resource path="res://assets/meteorBrown_small1.png" type="Texture" id=12]
-[ext_resource path="res://assets/meteorBrown_small2.png" type="Texture" id=13]
-[ext_resource path="res://assets/meteorBrown_tiny1.png" type="Texture" id=14]
-[ext_resource path="res://assets/meteorBrown_tiny2.png" type="Texture" id=15]
+[ext_resource path="res://assets/meteors/meteorBrown_big1.png" type="Texture" id=6]
+[ext_resource path="res://assets/meteors/meteorBrown_big2.png" type="Texture" id=7]
+[ext_resource path="res://assets/meteors/meteorBrown_big3.png" type="Texture" id=8]
+[ext_resource path="res://assets/meteors/meteorBrown_big4.png" type="Texture" id=9]
+[ext_resource path="res://assets/meteors/meteorBrown_med1.png" type="Texture" id=10]
+[ext_resource path="res://assets/meteors/meteorBrown_med2.png" type="Texture" id=11]
+[ext_resource path="res://assets/meteors/meteorBrown_small1.png" type="Texture" id=12]
+[ext_resource path="res://assets/meteors/meteorBrown_small2.png" type="Texture" id=13]
+[ext_resource path="res://assets/meteors/meteorBrown_tiny1.png" type="Texture" id=14]
+[ext_resource path="res://assets/meteors/meteorBrown_tiny2.png" type="Texture" id=15]
 
 [sub_resource type="SampleLibrary" id=1]
 
@@ -129,7 +129,7 @@ params/final_size = 0.0
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
-color/color = Color( 0.47451, 0.337255, 0.215686, 0.501961 )
+color/color = Color( 0.925781, 0.39418, 0.456477, 0.501961 )
 
 [node name="sample_player" type="SamplePlayer" parent="common"]
 
@@ -182,6 +182,7 @@ strength = 100
 [node name="Sprite" type="Sprite" parent="asteroids/big/big_1"]
 
 texture = ExtResource( 6 )
+modulate = Color( 0.828125, 0.443176, 0.49731, 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="asteroids/big/big_1"]
 

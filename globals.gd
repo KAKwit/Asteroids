@@ -16,8 +16,55 @@ var ASTEROID_BREAK_PATTERN = {
 	ASTEROID_TYPE.tiny: null
 }
 
+# Settings for each stage
+var STAGE_SETTINGS = {
+	1: {
+		planet = 1,
+		puff_color = "80795636",
+		modulate_color = "ffffff"
+	},
+	2: {
+		planet = 1,
+		puff_color = "80795636",
+		modulate_color = "ffffff"
+	},
+	3: {
+		planet = 2,
+		puff_color = "805f7996",
+		modulate_color = "709cd0"
+	},
+	4: {
+		planet = 2,
+		puff_color = "805f7996",
+		modulate_color = "709cd0"
+	},
+	5: {
+		planet = 3,
+		puff_color = "805f9669",
+		modulate_color = "688b6c"
+	},
+	6: {
+		planet = 3,
+		puff_color = "805f9669",
+		modulate_color = "688b6c"
+	},
+	7: {
+		planet = 4,
+		puff_color = "80ec6474",
+		modulate_color = "d3717e"
+	},
+	8: {
+		planet = 4,
+		puff_color = "80ec6474",
+		modulate_color = "d3717e"
+	}
+}
+
 # The currently selected player type
 var CURRENT_PLAYER_TYPE = PLAYER_TYPE.medium
+
+# The current stage
+var CURRENT_STAGE = 1
 
 # Background music modes - menus only, always, or never
 enum BGM_MODE { menus_only = 0, always = 1, never = 3 }
@@ -42,6 +89,10 @@ func emit_menu_select(node, event):
 # Play the general selection sound from any place this is required
 func play_pressed():
 	get_node("/root/main/sample_player").play("pressed")
+
+# Show the specified planet
+func show_planet(number):
+	get_node("/root/main/planets_container/planets").show_planet(number)
 
 # Wrap (teleport) the specified node when it moves off the screen.
 # The sprite's origin will be at the center, so we need to wait until the current position plus or minus half the width or

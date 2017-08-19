@@ -4,7 +4,6 @@ signal quit_game # Quit before the game is over
 signal exit_game # Exit after game over
 
 var player
-var stage = 1
 var countdown = 3
 var score = 0
 var game_over = false
@@ -46,6 +45,9 @@ func start_stage():
 	# Don't do anything if the game is over
 	if game_over:
 		return
+	if countdown == 3:
+		stage_display.get_node("label").set("text", "STAGE: %s" % globals.CURRENT_STAGE)
+		globals.show_planet(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].planet)
 	if countdown > 0:
 		# We count down 3 seconds before asteroids appear to give time to breathe
 		set_fixed_process(false)
@@ -57,7 +59,7 @@ func start_stage():
 			tween.interpolate_property(safe_zone, "transform/rot", 20, 0, 2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 2)
 			tween.start()
 		countdown_display.show()
-		countdown_display.get_node("label").set("text", "STAGE: %s, GET READY ... %s" % [stage, countdown])
+		countdown_display.get_node("label").set("text", "STAGE: %s, GET READY ... %s" % [globals.CURRENT_STAGE, countdown])
 		countdown_timer.start()
 	else:
 		# Once countdown is finished we can load the asteroids
@@ -104,7 +106,7 @@ func load_player(player_type):
 
 # Load the initial asteroids for the stage
 func load_initial_asteroids():
-	for i in range(stage):
+	for i in range(globals.CURRENT_STAGE):
 		load_asteroid(globals.ASTEROID_TYPE.big, spawn_locations.get_child(i).get_pos(), null)
 
 # Load and start individual asteroids
@@ -127,13 +129,14 @@ func asteroid_explode(type, position, velocity, hit_velocity, strength):
 		# For attempted added effect, we play multiple explosions for bigger asteroids and we mix up some parameters a bit
 		var exploder = get_node("asteroid_explosion").duplicate()
 		exploder.set_global_pos(position) if i == 1 else exploder.set_global_pos(position + Vector2(rand_range(-20, 20), rand_range(-20, 20)))
+		exploder.set("color/color", Color(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].puff_color))
 		exploder.set("config/explosiveness", rand_range(0.1, 0.3))
 		exploder.set("config/lifetime", 1 - (type * 0.1))
 		exploder.set("config/emit_timeout", 1 - (type * 0.1))
 		exploder.set_emitting(true)
 		explosions_container.add_child(exploder)
 	# Break the asteroid into smaller bits.  Tiny asteroids only appear on stage 3.
-	if new_type && !(new_type == globals.ASTEROID_TYPE.tiny && stage < 3):
+	if new_type && !(new_type == globals.ASTEROID_TYPE.tiny && globals.CURRENT_STAGE < 3):
 		for offset in [-1, 1]:
 			var new_pos = position + Vector2(16, 16) * offset
 			var new_vel = velocity + hit_velocity.tangent() + Vector2(rand_range(50, 150), rand_range(50, 150)) * offset
@@ -177,8 +180,7 @@ func do_player_explosion(position):
 		tween.start()
 
 func next_stage():
-	stage = clamp(stage + 1, 1, 8)
-	stage_display.get_node("label").set("text", "STAGE: %s" % stage)
+	globals.CURRENT_STAGE = clamp(globals.CURRENT_STAGE + 1, 1, 8)
 	start_stage()
 
 func game_over():

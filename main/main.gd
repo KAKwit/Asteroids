@@ -12,6 +12,7 @@ func _ready():
 	randomize()
 	# Load up the common elements and menu
 	load_background()
+	load_planets()
 	load_title()
 	load_menu()
 	# Start playing background music
@@ -22,6 +23,10 @@ func _ready():
 func load_background():
 	get_node("background_container").add_child(preload("res://main/background.tscn").instance())
 
+# Load and add the planets scene
+func load_planets():
+	get_node("planets_container").add_child(preload("res://main/planets.tscn").instance())
+
 # Load and add the title scene
 func load_title():
 	var title = preload("res://main/title.tscn").instance()
@@ -31,6 +36,7 @@ func load_title():
 # Load the menu scene into the main scene container and hook-up signals
 func load_menu():
 	unload_current_scene()
+	globals.show_planet(1)
 	current_scene = preload("res://main/menu.tscn").instance()
 	current_scene.connect("start_game", self, "ship_select", [], CONNECT_ONESHOT)
 	current_scene.connect("game_settings", self, "game_settings", [], CONNECT_ONESHOT)
@@ -61,6 +67,7 @@ func start_game():
 
 # Exit a game which is playing
 func exit_game():
+	globals.CURRENT_STAGE = 1
 	if globals.CURRENT_BGM_MODE == globals.BGM_MODE.menus_only:
 		get_node("background_music").play()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

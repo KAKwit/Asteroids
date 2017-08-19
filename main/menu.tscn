@@ -1,29 +1,7 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://main/menu.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/kenvector_future.ttf" type="DynamicFontData" id=2]
-
-
-[sub_resource type="DynamicFont" id=1]
-
-font/size = 16
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=2]
-
-font/size = 16
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=3]
-
-font/size = 16
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 2 )
+[ext_resource path="res://main/theme.tres" type="Theme" id=1]
+[ext_resource path="res://main/menu.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=4]
 
@@ -89,11 +67,12 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
-script/script = ExtResource( 1 )
+script/script = ExtResource( 2 )
 
 [node name="button_start" type="Button" parent="."]
 
@@ -105,7 +84,6 @@ margin/left = -264.0
 margin/top = 256.0
 margin/right = -54.0
 margin/bottom = 308.0
-custom_fonts/font = SubResource( 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -122,7 +100,6 @@ margin/left = -264.0
 margin/top = 320.0
 margin/right = -54.0
 margin/bottom = 372.0
-custom_fonts/font = SubResource( 2 )
 disabled = true
 toggle_mode = false
 enabled_focus_mode = 2
@@ -140,7 +117,6 @@ margin/left = -264.0
 margin/top = 384.0
 margin/right = -54.0
 margin/bottom = 436.0
-custom_fonts/font = SubResource( 3 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -157,7 +133,6 @@ margin/left = -264.0
 margin/top = 448.0
 margin/right = -54.0
 margin/bottom = 500.0
-custom_fonts/font = SubResource( 3 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -174,7 +149,6 @@ margin/left = -264.0
 margin/top = 608.0
 margin/right = -54.0
 margin/bottom = 660.0
-custom_fonts/font = SubResource( 3 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

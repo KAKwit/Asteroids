@@ -19,6 +19,8 @@ script/script = ExtResource( 1 )
 
 [node name="background_container" type="Node" parent="."]
 
+[node name="planets_container" type="Node" parent="."]
+
 [node name="title_container" type="Node" parent="."]
 
 [node name="scene_container" type="Node" parent="."]
