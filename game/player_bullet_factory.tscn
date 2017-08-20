@@ -69,6 +69,7 @@ _update_shape_index = 0
 
 [node name="medium" type="Area2D" parent="bullets"]
 
+editor/display_folded = true
 transform/pos = Vector2( 160, 64 )
 input/pickable = true
 shapes/0/shape = SubResource( 2 )
@@ -97,6 +98,7 @@ _update_shape_index = 0
 
 [node name="heavy" type="Area2D" parent="bullets"]
 
+editor/display_folded = true
 transform/pos = Vector2( 256, 64 )
 input/pickable = true
 shapes/0/shape = SubResource( 3 )

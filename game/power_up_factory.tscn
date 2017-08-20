@@ -1,0 +1,176 @@
+[gd_scene load_steps=10 format=1]
+
+[ext_resource path="res://game/power_up_factory.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/kenvector_future.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://game/power_up.gd" type="Script" id=3]
+[ext_resource path="res://assets/power_ups/health.png" type="Texture" id=4]
+[ext_resource path="res://assets/power_ups/multi_shot.png" type="Texture" id=5]
+[ext_resource path="res://assets/power_ups/rapid_fire.png" type="Texture" id=6]
+[ext_resource path="res://assets/power_ups/shield.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=2]
+
+font/size = 11
+font/use_mipmaps = true
+font/use_filter = true
+font/font = ExtResource( 2 )
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 12.4276, 12.5945 )
+
+[node name="power_up_factory" type="Node"]
+
+script/script = ExtResource( 1 )
+
+[node name="common" type="Node" parent="."]
+
+[node name="lifetime_timer" type="Timer" parent="common"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="collection_timer" type="Timer" parent="common"]
+
+process_mode = 1
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="countdown_label" type="Label" parent="common"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 20.0
+margin/top = -6.0
+margin/right = 40.0
+margin/bottom = 8.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.533333, 0.533333, 0.533333, 1 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="tween" type="Tween" parent="common"]
+
+playback/process_mode = 1
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="power_ups" type="Node" parent="."]
+
+[node name="health" type="Area2D" parent="power_ups"]
+
+transform/pos = Vector2( 64, 64 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="power_ups/health"]
+
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="power_ups/health"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="multi_shot" type="Area2D" parent="power_ups"]
+
+transform/pos = Vector2( 160, 64 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="power_ups/multi_shot"]
+
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="power_ups/multi_shot"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="rapid_fire" type="Area2D" parent="power_ups"]
+
+transform/pos = Vector2( 256, 64 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="power_ups/rapid_fire"]
+
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="power_ups/rapid_fire"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="shield" type="Area2D" parent="power_ups"]
+
+transform/pos = Vector2( 352, 64 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="power_ups/shield"]
+
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="power_ups/shield"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+

@@ -129,7 +129,7 @@ params/final_size = 0.0
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
-color/color = Color( 0.925781, 0.39418, 0.456477, 0.501961 )
+color/color = Color( 0.47451, 0.337255, 0.211765, 0.501961 )
 
 [node name="sample_player" type="SamplePlayer" parent="common"]
 
@@ -157,10 +157,13 @@ playback/speed = 1.0
 
 [node name="asteroids" type="Node" parent="."]
 
+editor/display_folded = true
+
 [node name="big" type="Node" parent="asteroids"]
 
 [node name="big_1" type="KinematicBody2D" parent="asteroids/big"]
 
+editor/display_folded = true
 transform/pos = Vector2( 96, 96 )
 input/pickable = false
 shapes/0/shape = SubResource( 2 )
@@ -182,7 +185,6 @@ strength = 100
 [node name="Sprite" type="Sprite" parent="asteroids/big/big_1"]
 
 texture = ExtResource( 6 )
-modulate = Color( 0.828125, 0.443176, 0.49731, 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="asteroids/big/big_1"]
 
@@ -283,6 +285,8 @@ trigger = false
 
 [node name="medium" type="Node" parent="asteroids"]
 
+editor/display_folded = true
+
 [node name="medium_1" type="KinematicBody2D" parent="asteroids/medium"]
 
 editor/display_folded = true
@@ -343,6 +347,8 @@ trigger = false
 
 [node name="small" type="Node" parent="asteroids"]
 
+editor/display_folded = true
+
 [node name="small_1" type="KinematicBody2D" parent="asteroids/small"]
 
 editor/display_folded = true
@@ -402,6 +408,8 @@ shape_range = Vector2( 0, 0 )
 trigger = false
 
 [node name="tiny" type="Node" parent="asteroids"]
+
+editor/display_folded = true
 
 [node name="tiny_1" type="KinematicBody2D" parent="asteroids/tiny"]
 

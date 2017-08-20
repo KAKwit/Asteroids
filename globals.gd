@@ -20,44 +20,68 @@ var ASTEROID_BREAK_PATTERN = {
 var STAGE_SETTINGS = {
 	1: {
 		planet = 1,
+		has_tiny = false,
+		power_ups = 0,
 		puff_color = "80795636",
 		modulate_color = "ffffff"
 	},
 	2: {
 		planet = 1,
+		has_tiny = false,
+		power_ups = 0,
 		puff_color = "80795636",
 		modulate_color = "ffffff"
 	},
 	3: {
 		planet = 2,
-		puff_color = "805f7996",
+		has_tiny = true,
+		power_ups = 1,
+		puff_color = "808c9db1",
 		modulate_color = "709cd0"
 	},
 	4: {
 		planet = 2,
-		puff_color = "805f7996",
+		has_tiny = true,
+		power_ups = 1,
+		puff_color = "808c9db1",
 		modulate_color = "709cd0"
 	},
 	5: {
 		planet = 3,
-		puff_color = "805f9669",
-		modulate_color = "688b6c"
+		has_tiny = true,
+		power_ups = 2,
+		puff_color = "8079917d",
+		modulate_color = "89b48e"
 	},
 	6: {
 		planet = 3,
-		puff_color = "805f9669",
-		modulate_color = "688b6c"
+		has_tiny = true,
+		power_ups = 2,
+		puff_color = "8079917d",
+		modulate_color = "89b48e"
 	},
 	7: {
 		planet = 4,
+		has_tiny = true,
+		power_ups = 3,
 		puff_color = "80ec6474",
-		modulate_color = "d3717e"
+		modulate_color = "f5a2a6"
 	},
 	8: {
 		planet = 4,
+		has_tiny = true,
+		power_ups = 3,
 		puff_color = "80ec6474",
-		modulate_color = "d3717e"
+		modulate_color = "f5a2a6"
 	}
+}
+
+# Power-ups
+var POWER_UPS = {
+	1: { type = "health", timeout = 0 },
+	2: { type = "multi_shot", timeout = 20 },
+	3: { type = "rapid_fire", timeout = 20 },
+	4: { type = "shield", timeout = 10 }
 }
 
 # The currently selected player type

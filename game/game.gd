@@ -9,12 +9,16 @@ var score = 0
 var game_over = false
 var ready_to_quit = false
 var player_explosions = 3
+var big_asteroids_count = 0
+var stage_power_ups_count = 0
 
 var player_factory = preload("res://game/player_factory.tscn").instance()
 var asteroid_factory = preload("res://game/asteroid_factory.tscn").instance()
+var power_up_factory = preload("res://game/power_up_factory.tscn").instance()
 
-onready var player_container = get_node("player_container")
 onready var asteroid_container = get_node("asteroid_container")
+onready var player_container = get_node("player_container")
+onready var power_up_container = get_node("power_up_container")
 onready var explosions_container = get_node("explosions_container")
 onready var spawn_locations = get_node("spawn_locations")
 onready var countdown_timer = get_node("countdown_timer")
@@ -106,6 +110,7 @@ func load_player(player_type):
 
 # Load the initial asteroids for the stage
 func load_initial_asteroids():
+	big_asteroids_count = globals.CURRENT_STAGE
 	for i in range(globals.CURRENT_STAGE):
 		load_asteroid(globals.ASTEROID_TYPE.big, spawn_locations.get_child(i).get_pos(), null)
 
@@ -135,13 +140,25 @@ func asteroid_explode(type, position, velocity, hit_velocity, strength):
 		exploder.set("config/emit_timeout", 1 - (type * 0.1))
 		exploder.set_emitting(true)
 		explosions_container.add_child(exploder)
-	# Break the asteroid into smaller bits.  Tiny asteroids only appear on stage 3.
-	if new_type && !(new_type == globals.ASTEROID_TYPE.tiny && globals.CURRENT_STAGE < 3):
+	# Break the asteroid into smaller bits.
+	if new_type && !(new_type == globals.ASTEROID_TYPE.tiny && globals.STAGE_SETTINGS[globals.CURRENT_STAGE].has_tiny == false):
 		for offset in [-1, 1]:
 			var new_pos = position + Vector2(16, 16) * offset
 			var new_vel = velocity + hit_velocity.tangent() + Vector2(rand_range(50, 150), rand_range(50, 150)) * offset
 			new_vel = new_vel * 2
 			load_asteroid(new_type, new_pos, new_vel)
+	# Create a power-up
+	if type == globals.ASTEROID_TYPE.big:
+		if globals.STAGE_SETTINGS[globals.CURRENT_STAGE].power_ups > stage_power_ups_count && randi() % big_asteroids_count + 1 == 1:
+			var power_up_type = randi() % globals.POWER_UPS.size() + 1
+			var power_up = power_up_factory.generate_power_up(power_up_type)
+			power_up.setup(power_up_type, position, hit_velocity + Vector2(rand_range(10, 100), rand_range(10, 100)))
+			power_up_container.add_child(power_up)
+			power_up.connect("collected", self, "_power_up_collected")
+			power_up.connect("lifetime_timeout", self, "_power_up_lifetime_timeout")
+			power_up.start()
+			stage_power_ups_count = stage_power_ups_count + 1
+		big_asteroids_count = big_asteroids_count - 1
 
 func player_updated_health(initial = false):
 	if initial:
@@ -158,6 +175,8 @@ func player_updated_health(initial = false):
 func player_explode(position):
 	game_over = true
 	player.queue_free()
+	for power_up in power_up_container.get_children():
+		power_up.queue_free()
 	do_player_explosion(position)
 
 # Do multiple particle explsions when player dies, then end the game after a pause
@@ -179,7 +198,43 @@ func do_player_explosion(position):
 		tween.interpolate_callback(self, 2, "game_over")
 		tween.start()
 
+func _power_up_collected(power_up, type):
+	get_node("sample_player").play("power_up")
+	# Prevent stacking of power-ups
+	for other in power_up_container.get_children():
+		if other != power_up && other.has_been_collected:
+			other.hide()
+			if other.type == power_up.type:
+				print("Destroy other")
+				other.destroy()
+	if type == "health":
+		player.health = player.initial_health
+		player_updated_health()
+	if type == "multi_shot":
+		player.has_multi_shot = true
+	if type == "rapid_fire":
+		player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time / 2)
+	if type == "shield":
+		player.has_invulnerability = true
+	if (!power_up.has_lifetime):
+		power_up.destroy()
+
+func _remove_power_ups():
+	player.has_multi_shot = false
+	player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time)
+	player.has_invulnerability = false
+
+func _power_up_lifetime_timeout(power_up, type):
+	if type == "multi_shot":
+		player.has_multi_shot = false
+	if type == "rapid_fire":
+		player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time)
+	if type == "shield":
+		player.has_invulnerability = false
+	power_up.destroy()
+
 func next_stage():
+	stage_power_ups_count = 0
 	globals.CURRENT_STAGE = clamp(globals.CURRENT_STAGE + 1, 1, 8)
 	start_stage()
 

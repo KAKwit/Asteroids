@@ -3,7 +3,7 @@
 [ext_resource path="res://main/theme.tres" type="Theme" id=1]
 [ext_resource path="res://main/menu.gd" type="Script" id=2]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
 
 length = 0.6
 loop = false
@@ -160,7 +160,7 @@ flat = false
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/menu = SubResource( 4 )
+anims/menu = SubResource( 1 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

@@ -27,11 +27,14 @@ onready var shield_regenerator = get_node("shield_regenerator")
 onready var bullet_factory = preload("player_bullet_factory.tscn").instance()
 onready var tween = get_node("tween")
 
-var initial_health
 var rotation = 0
 var position = Vector2()
 var velocity = Vector2()
 var acceleration = Vector2()
+var has_multi_shot = false
+var has_invulnerability = false setget set_invulnerability
+var initial_health
+var initial_gun_timer_wait_time
 var bullet_index
 
 func setup(position, bullet_index):
@@ -42,6 +45,7 @@ func setup(position, bullet_index):
 	set_pos(position)
 
 func start():
+	initial_gun_timer_wait_time = gun_timer.get_wait_time()
 	shield_regenerator.connect("timeout", self, "regenerate_shield")
 	set_fixed_process(true)
 
@@ -89,6 +93,13 @@ func regenerate_shield():
 
 func shoot():
 	gun_timer.start()
+	if has_multi_shot:
+		for i in [-0.1, 0, 0.1]:
+			make_bullet(rotation + i)
+	else:
+		make_bullet(rotation)
+
+func make_bullet(rotation):
 	var bullet = bullet_factory.generate_bullet(bullet_index)
 	get_node("sample_player").play("player_shoot" + String(bullet_index + 1))
 	bullet.setup(rotation, get_node("muzzle").get_global_pos(), velocity)
@@ -97,9 +108,12 @@ func shoot():
 
 func on_body_enter(body):
 	if body.has_method("get_shot"):
-		health = max(health - body.strength, 0)
+		if !has_invulnerability:
+			health = max(health - body.strength, 0)
 		emit_signal("updated_health")
 		body.get_shot(100, velocity.normalized(), get_global_pos())
+		if has_invulnerability:
+			return
 		if health < initial_health / 2:
 			# Show shield and glow red when health less than 50%
 			tween.interpolate_property(get_node("Sprite"), "modulate", Color("#ff0000"), Color("#ffffff"), 3, Tween.TRANS_LINEAR, Tween.EASE_OUT)
@@ -112,6 +126,14 @@ func on_body_enter(body):
 		if health <= 0:
 			destroy()
 
+func set_invulnerability(new_value):
+	if new_value && !has_invulnerability:
+		tween.interpolate_property(get_node("invulnerable"), "visibility/opacity", 0, 1, 1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+		tween.start()
+	if !new_value && has_invulnerability:
+		tween.interpolate_property(get_node("invulnerable"), "visibility/opacity", 1, 0, 1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+		tween.start()
+	has_invulnerability = new_value
+
 func destroy():
-	self.queue_free()
 	emit_signal("explode", position)

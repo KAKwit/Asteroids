@@ -1,14 +1,15 @@
-[gd_scene load_steps=27 format=1]
+[gd_scene load_steps=28 format=1]
 
 [ext_resource path="res://game/player_factory.gd" type="Script" id=1]
 [ext_resource path="res://assets/players/shield.png" type="Texture" id=2]
-[ext_resource path="res://assets/sounds/player_shoot1.wav" type="Sample" id=3]
-[ext_resource path="res://assets/sounds/player_shoot2.wav" type="Sample" id=4]
-[ext_resource path="res://assets/sounds/player_shoot3.wav" type="Sample" id=5]
-[ext_resource path="res://game/player.gd" type="Script" id=6]
-[ext_resource path="res://assets/players/player_light.png" type="Texture" id=7]
-[ext_resource path="res://assets/players/player_medium.png" type="Texture" id=8]
-[ext_resource path="res://assets/players/player_heavy.png" type="Texture" id=9]
+[ext_resource path="res://assets/players/invulnerable.png" type="Texture" id=3]
+[ext_resource path="res://assets/sounds/player_shoot1.wav" type="Sample" id=4]
+[ext_resource path="res://assets/sounds/player_shoot2.wav" type="Sample" id=5]
+[ext_resource path="res://assets/sounds/player_shoot3.wav" type="Sample" id=6]
+[ext_resource path="res://game/player.gd" type="Script" id=7]
+[ext_resource path="res://assets/players/player_light.png" type="Texture" id=8]
+[ext_resource path="res://assets/players/player_medium.png" type="Texture" id=9]
+[ext_resource path="res://assets/players/player_heavy.png" type="Texture" id=10]
 
 [sub_resource type="SampleLibrary" id=1]
 
@@ -16,19 +17,19 @@ samples/player_shoot1 = {
 "db": -5.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 3 )
+"sample": ExtResource( 4 )
 }
 samples/player_shoot2 = {
 "db": -5.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 4 )
+"sample": ExtResource( 5 )
 }
 samples/player_shoot3 = {
 "db": -5.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 5 )
+"sample": ExtResource( 6 )
 }
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
@@ -123,6 +124,12 @@ visibility/opacity = 0.0
 transform/scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 
+[node name="invulnerable" type="Sprite" parent="common"]
+
+visibility/opacity = 0.0
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 3 )
+
 [node name="bullet_container" type="Node" parent="common"]
 
 [node name="sample_player" type="SamplePlayer" parent="common"]
@@ -158,7 +165,9 @@ autostart = true
 
 [node name="players" type="Node" parent="."]
 
-[node name="light" type="Area2D" parent="players"]
+[node name="light" type="Area2D" parent="players" groups=[
+"player",
+]]
 
 transform/pos = Vector2( 96, 96 )
 input/pickable = true
@@ -178,7 +187,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 rotation_speed = 3.5
 friction = 0.25
 forward_thrust = 600
@@ -189,7 +198,7 @@ health = 50
 [node name="Sprite" type="Sprite" parent="players/light"]
 
 transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="players/light"]
 
@@ -237,7 +246,9 @@ wait_time = 0.2
 one_shot = true
 autostart = false
 
-[node name="medium" type="Area2D" parent="players"]
+[node name="medium" type="Area2D" parent="players" groups=[
+"player",
+]]
 
 transform/pos = Vector2( 256, 96 )
 input/pickable = true
@@ -257,7 +268,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -271,7 +282,7 @@ health = 75
 [node name="Sprite" type="Sprite" parent="players/medium"]
 
 transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="players/medium"]
 
@@ -319,7 +330,9 @@ wait_time = 0.4
 one_shot = true
 autostart = false
 
-[node name="heavy" type="Area2D" parent="players"]
+[node name="heavy" type="Area2D" parent="players" groups=[
+"player",
+]]
 
 transform/pos = Vector2( 416, 96 )
 input/pickable = true
@@ -342,7 +355,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -356,7 +369,7 @@ health = 100
 [node name="Sprite" type="Sprite" parent="players/heavy"]
 
 transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="players/heavy"]
 
