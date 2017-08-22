@@ -42,35 +42,35 @@ var STAGE_SETTINGS = {
 	4: {
 		planet = 2,
 		has_tiny = true,
-		power_ups = 1,
+		power_ups = 2,
 		puff_color = "808c9db1",
 		modulate_color = "709cd0"
 	},
 	5: {
 		planet = 3,
 		has_tiny = true,
-		power_ups = 2,
+		power_ups = 3,
 		puff_color = "8079917d",
 		modulate_color = "89b48e"
 	},
 	6: {
 		planet = 3,
 		has_tiny = true,
-		power_ups = 2,
+		power_ups = 4,
 		puff_color = "8079917d",
 		modulate_color = "89b48e"
 	},
 	7: {
 		planet = 4,
 		has_tiny = true,
-		power_ups = 3,
+		power_ups = 5,
 		puff_color = "80ec6474",
 		modulate_color = "f5a2a6"
 	},
 	8: {
 		planet = 4,
 		has_tiny = true,
-		power_ups = 3,
+		power_ups = 6,
 		puff_color = "80ec6474",
 		modulate_color = "f5a2a6"
 	}
@@ -81,7 +81,7 @@ var POWER_UPS = {
 	1: { type = "health", timeout = 0 },
 	2: { type = "multi_shot", timeout = 20 },
 	3: { type = "rapid_fire", timeout = 20 },
-	4: { type = "shield", timeout = 10 }
+	4: { type = "shield", timeout = 20 }
 }
 
 # The currently selected player type

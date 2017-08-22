@@ -158,6 +158,13 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="safe_zone" type="Sprite" parent="."]
+
+visibility/opacity = 0.0
+transform/pos = Vector2( 640, 368 )
+texture = ExtResource( 3 )
+modulate = Color( 0.203584, 0.847656, 0.149002, 1 )
+
 [node name="player_container" type="Node" parent="."]
 
 [node name="explosions_container" type="Node" parent="."]
@@ -317,13 +324,6 @@ randomness/linear_velocity = 1.0
 color/color = Color( 0.996094, 0.996094, 0.996094, 0.501961 )
 color/color_ramp = SubResource( 4 )
 
-[node name="safe_zone" type="Sprite" parent="."]
-
-visibility/opacity = 0.0
-transform/pos = Vector2( 640, 368 )
-texture = ExtResource( 3 )
-modulate = Color( 0.203584, 0.847656, 0.149002, 1 )
-
 [node name="hud" type="CanvasLayer" parent="."]
 
 editor/display_folded = true
@@ -334,6 +334,7 @@ scale = Vector2( 1, 1 )
 
 [node name="stage_display" type="Container" parent="hud"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -367,6 +368,7 @@ max_lines_visible = -1
 
 [node name="health_display" type="Container" parent="hud"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -437,6 +439,7 @@ radial_fill/center_offset = Vector2( 0, 0 )
 
 [node name="score_display" type="Container" parent="hud"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2

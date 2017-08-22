@@ -8,14 +8,14 @@
 [ext_resource path="res://assets/power_ups/rapid_fire.png" type="Texture" id=6]
 [ext_resource path="res://assets/power_ups/shield.png" type="Texture" id=7]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 
 font/size = 11
 font/use_mipmaps = true
 font/use_filter = true
 font/font = ExtResource( 2 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 12.4276, 12.5945 )
@@ -50,7 +50,7 @@ margin/left = 20.0
 margin/top = -6.0
 margin/right = 40.0
 margin/bottom = 8.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.533333, 0.533333, 0.533333, 1 )
 percent_visible = 1.0
 lines_skipped = 0
@@ -69,7 +69,7 @@ playback/speed = 1.0
 
 transform/pos = Vector2( 64, 64 )
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -88,7 +88,7 @@ texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="power_ups/health"]
 
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
@@ -96,7 +96,7 @@ _update_shape_index = 0
 
 transform/pos = Vector2( 160, 64 )
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -115,7 +115,7 @@ texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="power_ups/multi_shot"]
 
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
@@ -123,7 +123,7 @@ _update_shape_index = 0
 
 transform/pos = Vector2( 256, 64 )
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -142,7 +142,7 @@ texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="power_ups/rapid_fire"]
 
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
@@ -150,7 +150,7 @@ _update_shape_index = 0
 
 transform/pos = Vector2( 352, 64 )
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -169,7 +169,7 @@ texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="power_ups/shield"]
 
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
