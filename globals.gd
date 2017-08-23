@@ -87,8 +87,11 @@ var POWER_UPS = {
 # The currently selected player type
 var CURRENT_PLAYER_TYPE = PLAYER_TYPE.medium
 
+# Starting stage preference
+var STARTING_STAGE = 1
+
 # The current stage
-var CURRENT_STAGE = 1
+var CURRENT_STAGE = STARTING_STAGE
 
 # Background music modes - menus only, always, or never
 enum BGM_MODE { menus_only = 0, always = 1, never = 3 }

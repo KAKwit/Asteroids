@@ -55,6 +55,7 @@ func ship_select():
 # Load the game scene into the main scene container and start
 func start_game():
 	unload_current_scene()
+	globals.CURRENT_STAGE = globals.STARTING_STAGE
 	get_node("title_container").get_child(0).hide()
 	current_scene = preload("res://game/game.tscn").instance()
 	current_scene.connect("exit_game", self, "exit_game", [], CONNECT_ONESHOT)
@@ -67,7 +68,6 @@ func start_game():
 
 # Exit a game which is playing
 func exit_game():
-	globals.CURRENT_STAGE = 1
 	if globals.CURRENT_BGM_MODE == globals.BGM_MODE.menus_only:
 		get_node("background_music").play()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

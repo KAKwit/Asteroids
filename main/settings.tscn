@@ -139,7 +139,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="label_bgm_mode" type="Label" parent="column_a"]
+[node name="label_starting_stage" type="Label" parent="column_a"]
 
 anchor/right = 1
 focus/ignore_mouse = true
@@ -150,6 +150,25 @@ margin/left = 0.0
 margin/top = 64.0
 margin/right = 0.0
 margin/bottom = 98.0
+custom_fonts/font = SubResource( 3 )
+text = "STARTING STAGE:"
+align = 2
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="label_bgm_mode" type="Label" parent="column_a"]
+
+anchor/right = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 112.0
+margin/right = 0.0
+margin/bottom = 146.0
 custom_fonts/font = SubResource( 3 )
 text = "BACKGROUND MUSIC MODE:"
 align = 2
@@ -166,9 +185,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
-margin/top = 112.0
+margin/top = 160.0
 margin/right = 0.0
-margin/bottom = 146.0
+margin/bottom = 194.0
 custom_fonts/font = SubResource( 3 )
 text = "BACKGROUND MUSIC VOLUME:"
 align = 2
@@ -206,7 +225,7 @@ text = "ON"
 flat = false
 align = 0
 
-[node name="option_bgm" type="OptionButton" parent="column_b"]
+[node name="option_starting_stage" type="OptionButton" parent="column_b"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -225,6 +244,25 @@ align = 0
 selected = -1
 items = [  ]
 
+[node name="option_bgm" type="OptionButton" parent="column_b"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 112.0
+margin/right = 199.0
+margin/bottom = 146.0
+custom_fonts/font = SubResource( 3 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+align = 0
+selected = -1
+items = [  ]
+
 [node name="slider_bgm_volume" type="HSlider" parent="column_b"]
 
 focus/ignore_mouse = false
@@ -232,9 +270,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
-margin/top = 122.0
+margin/top = 170.0
 margin/right = 200.0
-margin/bottom = 138.0
+margin/bottom = 186.0
 range/min = 0.0
 range/max = 1.0
 range/step = 0.05
@@ -252,10 +290,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 535.0
-margin/top = 496.0
-margin/right = 745.0
-margin/bottom = 548.0
+margin/left = 992.0
+margin/top = 512.0
+margin/right = 1202.0
+margin/bottom = 564.0
 custom_fonts/font = SubResource( 4 )
 disabled = true
 toggle_mode = false
