@@ -11,13 +11,15 @@ var velocity = Vector2()
 var rotation_speed = 0.0
 var is_exploding = false
 var hit_velocity = Vector2()
+var has_power_up = false
 
 onready var puff = get_node("puff")
 onready var tween = get_node("tween")
 
-func setup(type, position, velocity):
+func setup(type, position, velocity, has_power_up = false):
 	self.type = type
 	self.velocity = Vector2(rand_range(40, 120), 0).rotated(rand_range(0, 2 * PI)) if velocity == null else velocity
+	self.has_power_up = has_power_up
 	self.rotation_speed = rand_range(-1.5, 1.5)
 	self.initial_strength = strength
 	add_to_group("asteroids")
@@ -34,7 +36,7 @@ func start():
 
 func _fixed_process(delta):
 	if is_exploding:
-		emit_signal("explode", type, get_pos(), velocity, hit_velocity, initial_strength)
+		emit_signal("explode", type, get_pos(), velocity, hit_velocity, initial_strength, has_power_up)
 		queue_free()
 	else:
 		velocity = velocity.clamped(200)

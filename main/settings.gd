@@ -19,11 +19,11 @@ func _ready():
 	for i in range(1, 9):
 		option_starting_stage.add_item("STAGE %s" % i, i)
 	option_starting_stage.select(globals.STARTING_STAGE - 1)
-	option_bgm.select(globals.CURRENT_BGM_MODE)
 	option_bgm.connect("item_selected", self, "set_bgm_mode")
 	option_bgm.add_item("MENUS ONLY", globals.BGM_MODE.menus_only)
 	option_bgm.add_item("ALWAYS", globals.BGM_MODE.always)
 	option_bgm.add_item("NEVER", globals.BGM_MODE.never)
+	option_bgm.select(globals.CURRENT_BGM_MODE)
 	slider_bgm_volume.set_value(globals.BGM_VOLUME)
 	slider_bgm_volume.connect("value_changed", self, "set_bgm_volume")
 

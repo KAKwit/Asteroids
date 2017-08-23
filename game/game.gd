@@ -9,8 +9,6 @@ var score = 0
 var game_over = false
 var ready_to_quit = false
 var player_explosions = 3
-var big_asteroids_count = 0
-var stage_power_ups_count = 0
 
 var player_factory = preload("res://game/player_factory.tscn").instance()
 var asteroid_factory = preload("res://game/asteroid_factory.tscn").instance()
@@ -110,22 +108,24 @@ func load_player(player_type):
 
 # Load the initial asteroids for the stage
 func load_initial_asteroids():
-	big_asteroids_count = globals.CURRENT_STAGE
+	var power_ups_count = globals.STAGE_SETTINGS[globals.CURRENT_STAGE].power_ups
 	for i in range(globals.CURRENT_STAGE):
-		load_asteroid(globals.ASTEROID_TYPE.big, spawn_locations.get_child(i).get_pos(), null)
+		var has_power_up = (randi() % 2 + 1 == 1 && power_ups_count > 0) || power_ups_count + 1 > globals.CURRENT_STAGE - i
+		power_ups_count = power_ups_count - 1 if has_power_up else power_ups_count
+		load_asteroid(globals.ASTEROID_TYPE.big, spawn_locations.get_child(i).get_pos(), null, has_power_up)
 
 # Load and start individual asteroids
-func load_asteroid(type, position, velocity):
+func load_asteroid(type, position, velocity, has_power_up = false):
 	var asteroid = asteroid_factory.generate_asteroid(type)
 	asteroid.connect("explode", self, "asteroid_explode")
-	asteroid.setup(type, position, velocity)
+	asteroid.setup(type, position, velocity, has_power_up)
 	asteroid_container.add_child(asteroid)
 	asteroid.start()
 
 # Called when an asteroid has exploded
-func asteroid_explode(type, position, velocity, hit_velocity, strength):
+func asteroid_explode(type, position, velocity, hit_velocity, initial_strength, has_power_up):
 	# Update the score
-	score += strength
+	score += initial_strength
 	score_display.get_node("label").set("text", "SCORE: %s" % score)
 	# Play explosion noise and then particle explosion
 	var new_type = globals.ASTEROID_BREAK_PATTERN[type]
@@ -148,17 +148,14 @@ func asteroid_explode(type, position, velocity, hit_velocity, strength):
 			new_vel = new_vel * 2
 			load_asteroid(new_type, new_pos, new_vel)
 	# Create a power-up
-	if type == globals.ASTEROID_TYPE.big:
-		if globals.STAGE_SETTINGS[globals.CURRENT_STAGE].power_ups > stage_power_ups_count && randi() % big_asteroids_count + 1 == 1:
-			var power_up_type = randi() % globals.POWER_UPS.size() + 1
-			var power_up = power_up_factory.generate_power_up(power_up_type)
-			power_up.setup(power_up_type, position, hit_velocity + Vector2(rand_range(10, 100), rand_range(10, 100)))
-			power_up_container.add_child(power_up)
-			power_up.connect("collected", self, "_power_up_collected")
-			power_up.connect("lifetime_timeout", self, "_power_up_lifetime_timeout")
-			power_up.start()
-			stage_power_ups_count = stage_power_ups_count + 1
-		big_asteroids_count = big_asteroids_count - 1
+	if has_power_up:
+		var power_up_type = randi() % globals.POWER_UPS.size() + 1
+		var power_up = power_up_factory.generate_power_up(power_up_type)
+		power_up.setup(power_up_type, position, hit_velocity + Vector2(rand_range(10, 100), rand_range(10, 100)))
+		power_up_container.add_child(power_up)
+		power_up.connect("collected", self, "_power_up_collected")
+		power_up.connect("lifetime_timeout", self, "_power_up_lifetime_timeout")
+		power_up.start()
 
 func player_updated_health(initial = false):
 	if initial:
@@ -234,7 +231,6 @@ func _power_up_lifetime_timeout(power_up, type):
 	power_up.destroy()
 
 func next_stage():
-	stage_power_ups_count = 0
 	globals.CURRENT_STAGE = clamp(globals.CURRENT_STAGE + 1, 1, 8)
 	start_stage()
 
