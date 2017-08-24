@@ -1,7 +1,7 @@
 extends Area2D
 
-signal collected
-signal lifetime_timeout
+signal power_up_collected
+signal power_up_lifetime_timeout
 
 var type
 var velocity
@@ -11,7 +11,6 @@ var has_lifetime = false
 onready var lifetime_timer = get_node("lifetime_timer")
 onready var collection_timer = get_node("collection_timer")
 onready var countdown_label = get_node("countdown_label")
-onready var tween = get_node("tween")
 
 func setup(type, position, velocity):
 	self.type = type
@@ -57,17 +56,14 @@ func _on_area_enter(area):
 	collection_timer.queue_free()
 	# Let the game know that the power-up has been collected
 	if area.is_in_group("player"):
-		emit_signal("collected", self, globals.POWER_UPS[type].type)
+		emit_signal("power_up_collected", self, globals.POWER_UPS[type].type, has_lifetime, countdown_label)
 	# If this power-up type has a lifetime rather than an immediate effect then start timeout
 	if has_lifetime:
 		lifetime_timer.set_wait_time(globals.POWER_UPS[type].timeout)
 		lifetime_timer.start()
-		tween.interpolate_property(self, "transform/pos", get_global_pos(), Vector2(28, 52), 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-		tween.interpolate_property(countdown_label, "visibility/visible", false, true, 1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-		tween.start()
 
 func _collection_timer_timeout():
 	destroy()
 
 func _lifetime_timer_timeout():
-	emit_signal("lifetime_timeout", self, globals.POWER_UPS[type].type)
+	emit_signal("power_up_lifetime_timeout", self, globals.POWER_UPS[type].type)

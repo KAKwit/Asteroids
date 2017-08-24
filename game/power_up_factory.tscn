@@ -51,22 +51,15 @@ margin/top = -6.0
 margin/right = 40.0
 margin/bottom = 8.0
 custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.533333, 0.533333, 0.533333, 1 )
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[node name="tween" type="Tween" parent="common"]
-
-playback/process_mode = 1
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
 
 [node name="power_ups" type="Node" parent="."]
 
 [node name="health" type="Area2D" parent="power_ups"]
 
+editor/display_folded = true
 transform/pos = Vector2( 64, 64 )
 input/pickable = true
 shapes/0/shape = SubResource( 2 )
@@ -94,6 +87,7 @@ _update_shape_index = 0
 
 [node name="multi_shot" type="Area2D" parent="power_ups"]
 
+editor/display_folded = true
 transform/pos = Vector2( 160, 64 )
 input/pickable = true
 shapes/0/shape = SubResource( 2 )
@@ -121,6 +115,7 @@ _update_shape_index = 0
 
 [node name="rapid_fire" type="Area2D" parent="power_ups"]
 
+editor/display_folded = true
 transform/pos = Vector2( 256, 64 )
 input/pickable = true
 shapes/0/shape = SubResource( 2 )

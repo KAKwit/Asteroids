@@ -153,8 +153,8 @@ func asteroid_explode(type, position, velocity, hit_velocity, initial_strength, 
 		var power_up = power_up_factory.generate_power_up(power_up_type)
 		power_up.setup(power_up_type, position, hit_velocity + Vector2(rand_range(10, 100), rand_range(10, 100)))
 		power_up_container.add_child(power_up)
-		power_up.connect("collected", self, "_power_up_collected")
-		power_up.connect("lifetime_timeout", self, "_power_up_lifetime_timeout")
+		power_up.connect("power_up_collected", self, "_power_up_collected")
+		power_up.connect("power_up_lifetime_timeout", self, "_power_up_lifetime_timeout")
 		power_up.start()
 
 func player_updated_health(initial = false):
@@ -195,15 +195,18 @@ func do_player_explosion(position):
 		tween.interpolate_callback(self, 2, "game_over")
 		tween.start()
 
-func _power_up_collected(power_up, type):
+func _power_up_collected(power_up, type, has_lifetime, countdown_label):
+	# Play collection sound and move to top of screen
 	get_node("sample_player").play("power_up")
-	# Prevent stacking of power-ups
-	for other in power_up_container.get_children():
-		if other != power_up && other.has_been_collected:
-			other.hide()
-			if other.type == power_up.type:
-				print("Destroy other")
-				other.destroy()
+	if has_lifetime:
+		# Stack after existing power-ups
+		var other_count = 0
+		for other in power_up_container.get_children():
+			if other != power_up && other.has_been_collected:
+				other_count += 1
+		tween.interpolate_property(power_up, "transform/pos", power_up.get_global_pos(), Vector2(28, 52 + (other_count * 30)), 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		tween.interpolate_property(countdown_label, "visibility/visible", false, true, 1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+		tween.start()
 	if type == "health":
 		player.health = player.initial_health
 		player_updated_health()
@@ -216,18 +219,28 @@ func _power_up_collected(power_up, type):
 	if (!power_up.has_lifetime):
 		power_up.destroy()
 
-func _remove_power_ups():
-	player.has_multi_shot = false
-	player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time)
-	player.has_invulnerability = false
-
 func _power_up_lifetime_timeout(power_up, type):
-	if type == "multi_shot":
-		player.has_multi_shot = false
-	if type == "rapid_fire":
-		player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time)
-	if type == "shield":
-		player.has_invulnerability = false
+	# Check what power-ups should be left
+	var has_multi_shot = false
+	var has_rapid_fire = false
+	var has_invulnerability = false
+	for other in power_up_container.get_children():
+		if other != power_up && other.has_been_collected:
+			if globals.POWER_UPS[other.type].type == "multi_shot":
+				has_multi_shot = true
+			if globals.POWER_UPS[other.type].type == "rapid_fire":
+				has_rapid_fire = true
+			if globals.POWER_UPS[other.type].type == "shield":
+				has_invulnerability = true
+	player.has_multi_shot = has_multi_shot
+	player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time / 2) if has_rapid_fire else 	player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time)
+	player.has_invulnerability = has_invulnerability
+	# Move existing power-ups
+	var y = power_up.get_global_pos().y
+	for other in power_up_container.get_children():
+		if other != power_up && other.has_been_collected && other.get_global_pos().y > y:
+			tween.interpolate_property(other, "transform/pos", other.get_global_pos(), other.get_global_pos() + Vector2(0, -30), 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
 	power_up.destroy()
 
 func next_stage():

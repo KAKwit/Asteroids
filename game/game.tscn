@@ -120,9 +120,9 @@ font/font = ExtResource( 2 )
 
 script/script = ExtResource( 1 )
 
-[node name="power_up_container" type="Node" parent="."]
-
 [node name="asteroid_container" type="Node" parent="."]
+
+[node name="power_up_container" type="Node" parent="."]
 
 [node name="countdown_display" type="Container" parent="."]
 
