@@ -149,7 +149,7 @@ func asteroid_explode(type, position, velocity, hit_velocity, initial_strength, 
 			load_asteroid(new_type, new_pos, new_vel)
 	# Create a power-up
 	if has_power_up:
-		var power_up_type = randi() % globals.POWER_UPS.size() + 1
+		var power_up_type = randi() % globals.POWER_UP_TYPE.size()
 		var power_up = power_up_factory.generate_power_up(power_up_type)
 		power_up.setup(power_up_type, position, hit_velocity + Vector2(rand_range(10, 100), rand_range(10, 100)))
 		power_up_container.add_child(power_up)
@@ -207,16 +207,16 @@ func _power_up_collected(power_up, type, has_lifetime, countdown_label):
 		tween.interpolate_property(power_up, "transform/pos", power_up.get_global_pos(), Vector2(28, 52 + (other_count * 30)), 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 		tween.interpolate_property(countdown_label, "visibility/visible", false, true, 1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 		tween.start()
-	if type == "health":
+	if type == globals.POWER_UP_TYPE.health:
 		player.health = player.initial_health
 		player_updated_health()
-	if type == "multi_shot":
+	if type == globals.POWER_UP_TYPE.multi_shot:
 		player.has_multi_shot = true
-	if type == "rapid_fire":
+	if type == globals.POWER_UP_TYPE.rapid_fire:
 		player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time / 2)
-	if type == "shield":
+	if type == globals.POWER_UP_TYPE.invulnerability:
 		player.has_invulnerability = true
-	if (!power_up.has_lifetime):
+	if !power_up.has_lifetime:
 		power_up.destroy()
 
 func _power_up_lifetime_timeout(power_up, type):
@@ -226,16 +226,17 @@ func _power_up_lifetime_timeout(power_up, type):
 	var has_invulnerability = false
 	for other in power_up_container.get_children():
 		if other != power_up && other.has_been_collected:
-			if globals.POWER_UPS[other.type].type == "multi_shot":
+			if other.type == globals.POWER_UP_TYPE.multi_shot:
 				has_multi_shot = true
-			if globals.POWER_UPS[other.type].type == "rapid_fire":
+			if other.type == globals.POWER_UP_TYPE.rapid_fire:
 				has_rapid_fire = true
-			if globals.POWER_UPS[other.type].type == "shield":
+			if other.type == globals.POWER_UP_TYPE.invulnerability:
 				has_invulnerability = true
+	# Apply remaining power-ups
 	player.has_multi_shot = has_multi_shot
-	player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time / 2) if has_rapid_fire else 	player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time)
+	player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time / 2) if has_rapid_fire else player.gun_timer.set_wait_time(player.initial_gun_timer_wait_time)
 	player.has_invulnerability = has_invulnerability
-	# Move existing power-ups
+	# Move existing power-ups up when one is removed
 	var y = power_up.get_global_pos().y
 	for other in power_up_container.get_children():
 		if other != power_up && other.has_been_collected && other.get_global_pos().y > y:

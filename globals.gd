@@ -16,6 +16,17 @@ var ASTEROID_BREAK_PATTERN = {
 	ASTEROID_TYPE.tiny: null
 }
 
+# Power-up types
+enum POWER_UP_TYPE { health = 0, multi_shot = 1, rapid_fire = 2, invulnerability = 3 }
+
+# Power-up settings
+var POWER_UPS = {
+	POWER_UP_TYPE.health: { timeout = 0 },
+	POWER_UP_TYPE.multi_shot: { timeout = 30 },
+	POWER_UP_TYPE.rapid_fire: { timeout = 30 },
+	POWER_UP_TYPE.invulnerability: { timeout = 30 }
+}
+
 # Settings for each stage
 var STAGE_SETTINGS = {
 	1: {
@@ -74,14 +85,6 @@ var STAGE_SETTINGS = {
 		puff_color = "80ec6474",
 		modulate_color = "f5a2a6"
 	}
-}
-
-# Power-ups
-var POWER_UPS = {
-	1: { type = "health", timeout = 0 },
-	2: { type = "multi_shot", timeout = 20 },
-	3: { type = "rapid_fire", timeout = 20 },
-	4: { type = "shield", timeout = 20 }
 }
 
 # The currently selected player type
