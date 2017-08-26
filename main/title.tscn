@@ -75,7 +75,7 @@ margin/right = 762.0
 margin/bottom = 160.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode/enabled = true
-bbcode/bbcode = "[color=#555555]K[/color]ASTEROIDS"
+bbcode/bbcode = "ASTEROIDS"
 visible_characters = -1
 
 [node name="disclaimer" type="Label" parent="title"]

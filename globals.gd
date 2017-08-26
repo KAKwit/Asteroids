@@ -108,7 +108,7 @@ var CURRENT_BGM_MODE = BGM_MODE.menus_only
 # Background music volume
 var BGM_VOLUME = 0.75
 
-var settings_file_path = "user://kasteroids_settings.bin"
+var settings_file_path = "user://asteroids_settings.bin"
 
 # Save settings
 func save_settings():

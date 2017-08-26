@@ -36,6 +36,7 @@ script/script = ExtResource( 1 )
 
 [node name="splash_container" type="Container" parent="."]
 
+editor/display_folded = true
 visibility/opacity = 0.0
 anchor/right = 1
 anchor/bottom = 1
