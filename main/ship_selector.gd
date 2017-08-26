@@ -12,4 +12,5 @@ func _ready():
 
 func select_button_pressed():
 	globals.CURRENT_PLAYER_TYPE = player_type
+	globals.save_settings()
 	emit_signal("ship_chosen")

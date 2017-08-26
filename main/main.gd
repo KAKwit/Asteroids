@@ -4,20 +4,31 @@ var current_scene
 onready var scene_container = get_node("scene_container")
 
 func _ready():
-	# Center the game window (with a fudge factor for dock)
-	var screen_size = OS.get_screen_size()
-	var window_size = OS.get_window_size()
-	OS.set_window_position((screen_size * 0.5 - window_size * 0.5) + Vector2(0, 100))
+	# Load previously saved settings
+	globals.load_settings()
+	OS.set_window_fullscreen(globals.FULL_SCREEN)
+	# Center the game window
+	if !globals.FULL_SCREEN:
+		var screen_size = OS.get_screen_size()
+		var window_size = OS.get_window_size()
+		OS.set_window_position((screen_size * 0.5 - window_size * 0.5))
 	# Once off randomize so it is properly seeded
 	randomize()
-	# Load up the common elements and menu
+	# Splash screen is shown first, then main screen
 	load_background()
+	var tween = get_node("tween")
+	tween.interpolate_property(get_node("splash_container"), "visibility/opacity", 0, 1, 2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.interpolate_property(get_node("splash_container"), "visibility/opacity", 1, 0, 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 2)
+	tween.interpolate_callback(self, 3, "start")
+	tween.start()
+
+func start():
+	# Load up the common elements and menu
 	load_planets()
 	load_title()
 	load_menu()
-	# Start playing background music
-	if globals.CURRENT_BGM_MODE != globals.BGM_MODE.never:
-		get_node("background_music").play()
+	bgm_set()
+	bgm_volume_changed()
 
 # Load and add the background scene
 func load_background():

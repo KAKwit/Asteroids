@@ -87,6 +87,9 @@ var STAGE_SETTINGS = {
 	}
 }
 
+# Whether or not we should be in full screen
+var FULL_SCREEN = false
+
 # The currently selected player type
 var CURRENT_PLAYER_TYPE = PLAYER_TYPE.medium
 
@@ -97,13 +100,47 @@ var STARTING_STAGE = 1
 var CURRENT_STAGE = STARTING_STAGE
 
 # Background music modes - menus only, always, or never
-enum BGM_MODE { menus_only = 0, always = 1, never = 3 }
+enum BGM_MODE { menus_only = 0, always = 1, never = 2 }
 
 # Current background music mode
 var CURRENT_BGM_MODE = BGM_MODE.menus_only
 
 # Background music volume
 var BGM_VOLUME = 0.75
+
+var settings_file_path = "user://kasteroids_settings.bin"
+
+# Save settings
+func save_settings():
+	# Put settings into JSON object
+	var settings = {
+		full_screen = FULL_SCREEN,
+		player_type = CURRENT_PLAYER_TYPE,
+		starting_stage = STARTING_STAGE,
+		bgm_mode = CURRENT_BGM_MODE,
+		bgm_volume = BGM_VOLUME
+	}
+	# Save settings to file
+	var file = File.new()
+	file.open(settings_file_path, File.WRITE)
+	file.store_line(settings.to_json())
+	file.close()
+
+# Load settings
+func load_settings():
+	# Read settings file into JSON object
+	# print(OS.get_data_dir())
+	var settings = {}
+	var file = File.new()
+	if file.file_exists(settings_file_path):
+		file.open(settings_file_path, File.READ)
+		settings.parse_json(file.get_line())
+		# Put settings back to globals
+		FULL_SCREEN = bool(settings.full_screen)
+		CURRENT_PLAYER_TYPE = int(settings.player_type)
+		STARTING_STAGE = int(settings.starting_stage)
+		CURRENT_BGM_MODE = int(settings.bgm_mode)
+		BGM_VOLUME = float(settings.bgm_volume)
 
 # Common handler for menu selection in scenes
 func menu_select(node, event):
@@ -125,9 +162,6 @@ func show_planet(number):
 	get_node("/root/main/planets_container/planets").show_planet(number)
 
 # Wrap (teleport) the specified node when it moves off the screen.
-# The sprite's origin will be at the center, so we need to wait until the current position plus or minus half the width or
-# height of the sprite is outside of the screen's bounds before teleporting it to the opposite side.  Otherwise it
-# would jump while still visible.
 func screen_wrap(node):
 	var screen_size = Vector2(Globals.get("display/width"), Globals.get("display/height"))
 	var halfSpriteSize = node.get_node("Sprite").get_texture().get_size() * 0.5
