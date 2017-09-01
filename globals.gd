@@ -16,6 +16,9 @@ var ASTEROID_BREAK_PATTERN = {
 	ASTEROID_TYPE.tiny: null
 }
 
+# Enemy types - easy, medium, hard
+enum ENEMY_TYPE { easy = 0, medium = 1, hard = 2 }
+
 # Power-up types
 enum POWER_UP_TYPE { health = 0, multi_shot = 1, rapid_fire = 2, invulnerability = 3 }
 
@@ -32,6 +35,8 @@ var STAGE_SETTINGS = {
 	1: {
 		planet = 1,
 		has_tiny = false,
+		enemy_type = ENEMY_TYPE.easy,
+		enemies = 0,
 		power_ups = 0,
 		puff_color = "80795636",
 		modulate_color = "ffffff"
@@ -39,6 +44,8 @@ var STAGE_SETTINGS = {
 	2: {
 		planet = 1,
 		has_tiny = false,
+		enemy_type = ENEMY_TYPE.easy,
+		enemies = 0,
 		power_ups = 0,
 		puff_color = "80795636",
 		modulate_color = "ffffff"
@@ -46,6 +53,8 @@ var STAGE_SETTINGS = {
 	3: {
 		planet = 2,
 		has_tiny = true,
+		enemy_type = ENEMY_TYPE.easy,
+		enemies = 1,
 		power_ups = 1,
 		puff_color = "808c9db1",
 		modulate_color = "709cd0"
@@ -53,6 +62,8 @@ var STAGE_SETTINGS = {
 	4: {
 		planet = 2,
 		has_tiny = true,
+		enemy_type = ENEMY_TYPE.easy,
+		enemies = 2,
 		power_ups = 2,
 		puff_color = "808c9db1",
 		modulate_color = "709cd0"
@@ -60,6 +71,8 @@ var STAGE_SETTINGS = {
 	5: {
 		planet = 3,
 		has_tiny = true,
+		enemy_type = ENEMY_TYPE.medium,
+		enemies = 1,
 		power_ups = 3,
 		puff_color = "8079917d",
 		modulate_color = "89b48e"
@@ -67,6 +80,8 @@ var STAGE_SETTINGS = {
 	6: {
 		planet = 3,
 		has_tiny = true,
+		enemy_type = ENEMY_TYPE.medium,
+		enemies = 2,
 		power_ups = 4,
 		puff_color = "8079917d",
 		modulate_color = "89b48e"
@@ -74,6 +89,8 @@ var STAGE_SETTINGS = {
 	7: {
 		planet = 4,
 		has_tiny = true,
+		enemy_type = ENEMY_TYPE.hard,
+		enemies = 2,
 		power_ups = 5,
 		puff_color = "80ec6474",
 		modulate_color = "f5a2a6"
@@ -81,6 +98,8 @@ var STAGE_SETTINGS = {
 	8: {
 		planet = 4,
 		has_tiny = true,
+		enemy_type = ENEMY_TYPE.hard,
+		enemies = 3,
 		power_ups = 6,
 		puff_color = "80ec6474",
 		modulate_color = "f5a2a6"

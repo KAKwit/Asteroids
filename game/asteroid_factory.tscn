@@ -103,6 +103,8 @@ script/script = ExtResource( 1 )
 
 [node name="common" type="Node" parent="."]
 
+editor/display_folded = true
+
 [node name="puff" type="Particles2D" parent="common"]
 
 transform/pos = Vector2( 736, 96 )
@@ -160,6 +162,8 @@ playback/speed = 1.0
 editor/display_folded = true
 
 [node name="big" type="Node" parent="asteroids"]
+
+editor/display_folded = true
 
 [node name="big_1" type="KinematicBody2D" parent="asteroids/big"]
 

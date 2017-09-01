@@ -9,8 +9,8 @@
 [sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 4.6805
-height = 31.387
+radius = 3.05896
+height = 40.7535
 
 [sub_resource type="CapsuleShape2D" id=2]
 
@@ -33,7 +33,7 @@ script/script = ExtResource( 1 )
 [node name="lifetime" type="Timer" parent="common"]
 
 process_mode = 1
-wait_time = 3.0
+wait_time = 2.0
 one_shot = false
 autostart = true
 

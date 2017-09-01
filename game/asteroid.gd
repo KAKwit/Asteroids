@@ -22,7 +22,6 @@ func setup(type, position, velocity, has_power_up = false):
 	self.has_power_up = has_power_up
 	self.rotation_speed = rand_range(-1.5, 1.5)
 	self.initial_strength = strength
-	add_to_group("asteroids")
 	set_pos(position)
 	if type == globals.ASTEROID_TYPE.big:
 		get_node("Sprite").set("visibility/opacity", 0)

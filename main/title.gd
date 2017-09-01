@@ -8,6 +8,7 @@ var asteroid_factory = preload("res://game/asteroid_factory.tscn").instance()
 
 func show():
 	animation.play("in")
+	globals.CURRENT_STAGE = 1
 	var asteroid = asteroid_factory.generate_asteroid(0)
 	asteroid.setup(0, Vector2(500, 200), Vector2(rand_range(10, 50), 0).rotated(rand_range(0, 2 * PI)))
 	asteroid.get_node("Sprite").set("modulate", "#ff999999")

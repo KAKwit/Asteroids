@@ -9,14 +9,17 @@ var score = 0
 var game_over = false
 var ready_to_quit = false
 var player_explosions = 3
+var enemies_spawned = 0
 
 var player_factory = preload("res://game/player_factory.tscn").instance()
 var asteroid_factory = preload("res://game/asteroid_factory.tscn").instance()
+var enemy_factory = preload("res://game/enemy_factory.tscn").instance()
 var power_up_factory = preload("res://game/power_up_factory.tscn").instance()
 
-onready var asteroid_container = get_node("asteroid_container")
-onready var player_container = get_node("player_container")
 onready var power_up_container = get_node("power_up_container")
+onready var asteroid_container = get_node("asteroid_container")
+onready var enemy_container = get_node("enemy_container")
+onready var player_container = get_node("player_container")
 onready var explosions_container = get_node("explosions_container")
 onready var spawn_locations = get_node("spawn_locations")
 onready var countdown_timer = get_node("countdown_timer")
@@ -85,8 +88,8 @@ func _fixed_process(delta):
 	for exploder in explosions_container.get_children():
 		if !exploder.is_emitting():
 			exploder.queue_free()
-	# If there are no asteroids left then increase the stage (up to maximum), reset countdown and start again
-	if asteroid_container.get_child_count() == 0 && countdown != 3:
+	# If there are no asteroids or enemies left then increase the stage (up to maximum), reset countdown and start again
+	if asteroid_container.get_child_count() == 0 && enemy_container.get_child_count() == 0 && countdown != 3:
 		countdown = 3
 		tween.interpolate_callback(self, 1, "next_stage")
 
@@ -109,6 +112,8 @@ func load_player(player_type):
 # Load the initial asteroids for the stage
 func load_initial_asteroids():
 	var power_ups_count = globals.STAGE_SETTINGS[globals.CURRENT_STAGE].power_ups
+	if globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemies > 0:
+		tween.interpolate_callback(self, rand_range(30, 60), "_spawn_enemy")
 	for i in range(globals.CURRENT_STAGE):
 		var has_power_up = (randi() % 2 + 1 == 1 && power_ups_count > 0) || power_ups_count + 1 > globals.CURRENT_STAGE - i
 		power_ups_count = power_ups_count - 1 if has_power_up else power_ups_count
@@ -121,6 +126,35 @@ func load_asteroid(type, position, velocity, has_power_up = false):
 	asteroid.setup(type, position, velocity, has_power_up)
 	asteroid_container.add_child(asteroid)
 	asteroid.start()
+
+# Spawn an enemy after a random delay
+func _spawn_enemy():
+	if game_over:
+		return
+	enemies_spawned = enemies_spawned + 1
+	var enemy = enemy_factory.generate_enemy(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type)
+	enemy.connect("explode", self, "_enemy_explode")
+	enemy.setup(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type, player)
+	enemy_container.add_child(enemy)
+	enemy.start()
+	# Queue next enemy if applicable
+	if enemies_spawned < globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemies:
+		tween.interpolate_callback(self, rand_range(30, 60), "_spawn_enemy")
+
+func _enemy_explode(position, initial_strength):
+	# Update the score
+	score += initial_strength
+	score_display.get_node("label").set("text", "SCORE: %s" % score)
+	# Play explosion noise and then particle explosion
+	get_node("sample_player").play("player_explode" + String(randi() % 3 + 1))
+	for i in range(3):
+		var exploder = get_node("player_explosion%s" % player_explosions).duplicate()
+		exploder.set_global_pos(position) if i == 1 else exploder.set_global_pos(position + Vector2(rand_range(-20, 20), rand_range(-20, 20)))
+		exploder.set("config/explosiveness", rand_range(0.1, 0.3))
+		exploder.set("config/lifetime", 2)
+		exploder.set("config/emit_timeout", 2)
+		exploder.set_emitting(true)
+		explosions_container.add_child(exploder)
 
 # Called when an asteroid has exploded
 func asteroid_explode(type, position, velocity, hit_velocity, initial_strength, has_power_up):
@@ -245,6 +279,7 @@ func _power_up_lifetime_timeout(power_up, type):
 	power_up.destroy()
 
 func next_stage():
+	enemies_spawned = 0
 	globals.CURRENT_STAGE = clamp(globals.CURRENT_STAGE + 1, 1, 8)
 	start_stage()
 
