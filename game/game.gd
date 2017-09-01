@@ -113,7 +113,7 @@ func load_player(player_type):
 func load_initial_asteroids():
 	var power_ups_count = globals.STAGE_SETTINGS[globals.CURRENT_STAGE].power_ups
 	if globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemies > 0:
-		tween.interpolate_callback(self, rand_range(30, 60), "_spawn_enemy")
+		tween.interpolate_callback(self, rand_range(30, 60), "spawn_enemy", globals.CURRENT_STAGE)
 	for i in range(globals.CURRENT_STAGE):
 		var has_power_up = (randi() % 2 + 1 == 1 && power_ups_count > 0) || power_ups_count + 1 > globals.CURRENT_STAGE - i
 		power_ups_count = power_ups_count - 1 if has_power_up else power_ups_count
@@ -128,20 +128,20 @@ func load_asteroid(type, position, velocity, has_power_up = false):
 	asteroid.start()
 
 # Spawn an enemy after a random delay
-func _spawn_enemy():
-	if game_over:
+func spawn_enemy(for_stage):
+	if game_over || globals.CURRENT_STAGE != for_stage:
 		return
 	enemies_spawned = enemies_spawned + 1
 	var enemy = enemy_factory.generate_enemy(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type)
-	enemy.connect("explode", self, "_enemy_explode")
+	enemy.connect("explode", self, "enemy_explode")
 	enemy.setup(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type, player)
 	enemy_container.add_child(enemy)
 	enemy.start()
 	# Queue next enemy if applicable
 	if enemies_spawned < globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemies:
-		tween.interpolate_callback(self, rand_range(30, 60), "_spawn_enemy")
+		tween.interpolate_callback(self, rand_range(30, 60), "spawn_enemy", globals.CURRENT_STAGE)
 
-func _enemy_explode(position, initial_strength):
+func enemy_explode(position, initial_strength):
 	# Update the score
 	score += initial_strength
 	score_display.get_node("label").set("text", "SCORE: %s" % score)

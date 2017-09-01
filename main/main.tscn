@@ -80,6 +80,7 @@ bbcode/bbcode = "
 [/center]
 "
 visible_characters = -1
+percent_visible = 1.0
 
 [node name="planets_container" type="Node" parent="."]
 
