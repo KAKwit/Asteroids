@@ -75,7 +75,7 @@ func start_stage():
 		load_initial_asteroids()
 
 func countdown_timeout():
-	countdown = countdown - 1
+	countdown += -1
 	# Keep going back to start until countdown is over
 	if countdown >= 0:
 		start_stage()
@@ -131,7 +131,7 @@ func load_asteroid(type, position, velocity, has_power_up = false):
 func spawn_enemy(for_stage):
 	if game_over || globals.CURRENT_STAGE != for_stage:
 		return
-	enemies_spawned = enemies_spawned + 1
+	enemies_spawned += 1
 	var enemy = enemy_factory.generate_enemy(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type)
 	enemy.connect("explode", self, "enemy_explode")
 	enemy.setup(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type, player)

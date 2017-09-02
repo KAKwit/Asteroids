@@ -64,7 +64,7 @@ func emit_puff(position):
 	puff.set_emitting(true)
 
 func get_shot(bullet_strength, hit_velocity, position):
-	# We should not remove the static body outside of a fixed process - weird stuff happens.
+	# We should not remove the kinematic body outside of a fixed process - weird stuff happens.
 	strength = strength - bullet_strength
 	if strength <= 0:
 		is_exploding = true

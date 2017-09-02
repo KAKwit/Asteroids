@@ -19,7 +19,7 @@ var ASTEROID_BREAK_PATTERN = {
 # Enemy types - easy, medium, hard
 enum ENEMY_TYPE { easy = 0, medium = 1, hard = 2 }
 
-# Power-up types
+# Power-up types - health, multi_shot, rapid_fire, invulnerability
 enum POWER_UP_TYPE { health = 0, multi_shot = 1, rapid_fire = 2, invulnerability = 3 }
 
 # Power-up settings
@@ -106,11 +106,11 @@ var STAGE_SETTINGS = {
 	}
 }
 
-# Whether or not we should be in full screen
-var FULL_SCREEN = false
-
 # The currently selected player type
 var CURRENT_PLAYER_TYPE = PLAYER_TYPE.medium
+
+# Whether or not we should be in full screen
+var FULL_SCREEN = false
 
 # Starting stage preference
 var STARTING_STAGE = 1
@@ -127,6 +127,7 @@ var CURRENT_BGM_MODE = BGM_MODE.menus_only
 # Background music volume
 var BGM_VOLUME = 0.75
 
+# Path for storing settings
 var settings_file_path = "user://asteroids_settings.bin"
 
 # Save settings
@@ -148,7 +149,7 @@ func save_settings():
 # Load settings
 func load_settings():
 	# Read settings file into JSON object
-	# print(OS.get_data_dir())
+	# To see location: print(OS.get_data_dir())
 	var settings = {}
 	var file = File.new()
 	if file.file_exists(settings_file_path):

@@ -108,19 +108,18 @@ func make_bullet(rotation):
 
 func on_body_enter(body):
 	if body.has_method("get_shot"):
-		_do_damage(body.strength)
+		do_damage(body.strength)
 		body.get_shot(100, velocity.normalized(), get_global_pos())
 
 func get_shot(bullet_strength, hit_velocity, position):
 	get_node("sample_player").play("player_hit" + String(randi() % 3 + 1))
-	_do_damage(bullet_strength)
+	do_damage(bullet_strength)
 
-func _do_damage(strength):
-	if !has_invulnerability:
-		health = max(health - strength, 0)
-	emit_signal("updated_health")
+func do_damage(strength):
 	if has_invulnerability:
 		return
+	health = max(health - strength, 0)
+	emit_signal("updated_health")
 	if health < initial_health / 2:
 		# Show shield and glow red when health less than 50%
 		tween.interpolate_property(get_node("Sprite"), "modulate", Color("#ff0000"), Color("#ffffff"), 3, Tween.TRANS_LINEAR, Tween.EASE_OUT)
