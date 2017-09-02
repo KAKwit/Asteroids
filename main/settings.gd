@@ -9,6 +9,7 @@ onready var checkbox_fullscreen = get_node("column_b/checkbox_fullscreen")
 onready var option_starting_stage = get_node("column_b/option_starting_stage")
 onready var option_bgm = get_node("column_b/option_bgm")
 onready var slider_bgm_volume = get_node("column_b/slider_bgm_volume")
+onready var reset_settings = get_node("reset_settings")
 
 func _ready():
 	back_button.grab_focus()
@@ -26,6 +27,7 @@ func _ready():
 	option_bgm.select(globals.CURRENT_BGM_MODE)
 	slider_bgm_volume.set_value(globals.BGM_VOLUME)
 	slider_bgm_volume.connect("value_changed", self, "set_bgm_volume")
+	reset_settings.connect("pressed", self, "reset_settings")
 	globals.escape_button(back_button)
 
 func toggle_fullscreen(pressed):
@@ -45,6 +47,20 @@ func set_bgm_mode(index):
 func set_bgm_volume(new_value):
 	globals.BGM_VOLUME = new_value
 	globals.save_settings()
+	emit_signal("bgm_volume_changed")
+
+func reset_settings():
+	globals.FULL_SCREEN = false
+	globals.STARTING_STAGE = 1
+	globals.CURRENT_BGM_MODE = globals.BGM_MODE.menus_only
+	globals.BGM_VOLUME = 0.75
+	globals.save_settings()
+	checkbox_fullscreen.set("is_pressed", globals.FULL_SCREEN)
+	OS.set_window_fullscreen(globals.FULL_SCREEN)
+	option_starting_stage.select(globals.STARTING_STAGE - 1)
+	option_bgm.select(globals.CURRENT_BGM_MODE)
+	slider_bgm_volume.set_value(globals.BGM_VOLUME)
+	emit_signal("bgm_set")
 	emit_signal("bgm_volume_changed")
 
 func go_back():

@@ -111,13 +111,14 @@ max_lines_visible = -1
 
 [node name="column_a" type="Container" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 80.0
 margin/top = 320.0
-margin/right = 640.0
+margin/right = 608.0
 margin/bottom = 576.0
 
 [node name="label_fullscreen" type="Label" parent="column_a"]
@@ -198,11 +199,12 @@ max_lines_visible = -1
 
 [node name="column_b" type="Container" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 656.0
+margin/left = 624.0
 margin/top = 320.0
 margin/right = 1216.0
 margin/bottom = 576.0
@@ -283,6 +285,23 @@ range/rounded = false
 tick_count = 0
 ticks_on_borders = true
 focus_mode = 2
+
+[node name="reset_settings" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 992.0
+margin/top = 448.0
+margin/right = 1202.0
+margin/bottom = 500.0
+custom_fonts/font = SubResource( 4 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "RESET SETTINGS"
+flat = false
 
 [node name="reset_highscores" type="Button" parent="."]
 

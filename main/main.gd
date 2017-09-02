@@ -50,6 +50,7 @@ func load_menu():
 	globals.show_planet(1)
 	current_scene = preload("res://main/menu.tscn").instance()
 	current_scene.connect("start_game", self, "ship_select", [], CONNECT_ONESHOT)
+	current_scene.connect("highscores", self, "highscores", [], CONNECT_ONESHOT)
 	current_scene.connect("game_settings", self, "game_settings", [], CONNECT_ONESHOT)
 	current_scene.connect("about_game", self, "about_game", [], CONNECT_ONESHOT)
 	current_scene.connect("quit_game", self, "quit_game", [], CONNECT_ONESHOT)
@@ -84,6 +85,13 @@ func exit_game():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_node("title_container").get_child(0).show()
 	load_menu()
+
+# Load the highscores scene into the main container
+func highscores():
+	unload_current_scene()
+	current_scene = preload("res://main/highscores.tscn").instance()
+	current_scene.connect("back", self, "load_menu", [], CONNECT_ONESHOT)
+	scene_container.add_child(current_scene)
 
 # Load the settings scene into the main container
 func game_settings():

@@ -162,6 +162,17 @@ func load_settings():
 		CURRENT_BGM_MODE = int(settings.bgm_mode)
 		BGM_VOLUME = float(settings.bgm_volume)
 
+# Array of the top 10 scores with names
+var HIGHSCORES = []
+
+# Path for storing highscores
+var highscores_file_path = "user://asteroids_highscores.bin"
+
+func load_highscores():
+	# Initialise with empty set of 10
+	for i in range(10):
+		HIGHSCORES.append({ name = "---", score = 0 })
+
 # Common handler for menu selection in scenes
 func menu_select(node, event):
 	var animation = node.get_node("animation")
