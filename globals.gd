@@ -170,6 +170,7 @@ var highscores_file_path = "user://asteroids_highscores.bin"
 
 func load_highscores():
 	# Initialise with empty set of 10
+	HIGHSCORES = []
 	for i in range(10):
 		HIGHSCORES.append({ name = "---", score = 0 })
 

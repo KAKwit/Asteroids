@@ -2,6 +2,7 @@ extends Container
 
 signal back
 onready var back_button = get_node("back_button")
+onready var tween = get_node("tween")
 
 func _ready():
 	back_button.grab_focus()
@@ -14,12 +15,10 @@ func go_back():
 	globals.menu_select(self, "back")
 
 func show_highscores():
-	var panel = get_node("highscores_panel")
 	for i in range(globals.HIGHSCORES.size()):
-		var scorebox = panel.get_child(i)
+		var scorebox = get_node("highscores_panel").get_child(i)
+		# Set the values for the score
 		scorebox.get_node("name").set_text(globals.HIGHSCORES[i].name)
 		scorebox.get_node("score").set_text(String(globals.HIGHSCORES[i].score))
-		if globals.HIGHSCORES[i].score == 0:
-			scorebox.get_node("position").set("custom_colors/font_color", Color("111111"))
-			scorebox.get_node("name").set("custom_colors/font_color", Color("111111"))
-			scorebox.get_node("score").set("custom_colors/font_color", Color("111111"))
+		tween.interpolate_property(scorebox, "visibility/opacity", 0, 1, (i + 1) * 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
