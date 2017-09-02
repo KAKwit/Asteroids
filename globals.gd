@@ -192,3 +192,12 @@ func screen_wrap(node):
 	position.y = screen_size.height + halfSpriteSize.height if position.y < 0 - halfSpriteSize.height else position.y
 	if position != originalPosition:
 		node.set_pos(position)
+
+# Sets up a button to use escape as a shortcut
+func escape_button(button):
+	var hotkey = InputEvent()
+	hotkey.type = InputEvent.KEY
+	hotkey.scancode = KEY_ESCAPE
+	var shortcut = ShortCut.new()
+	shortcut.set_shortcut(hotkey)
+	button.set_shortcut(shortcut)

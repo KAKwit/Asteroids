@@ -26,6 +26,7 @@ func _ready():
 	option_bgm.select(globals.CURRENT_BGM_MODE)
 	slider_bgm_volume.set_value(globals.BGM_VOLUME)
 	slider_bgm_volume.connect("value_changed", self, "set_bgm_volume")
+	globals.escape_button(back_button)
 
 func toggle_fullscreen(pressed):
 	OS.set_window_fullscreen(pressed)
