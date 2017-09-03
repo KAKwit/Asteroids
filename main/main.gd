@@ -12,7 +12,10 @@ func _ready():
 	if !globals.FULL_SCREEN:
 		var screen_size = OS.get_screen_size()
 		if screen_size.width > 1920 && screen_size.height > 1080 && OS.get_screen_dpi() > 200:
-			OS.set_window_size(Vector2(1920, 1080))
+			# Godot or something seems to screw this up:
+			# OS.set_window_size(Vector2(1920, 1080))
+			# ... it then doubles it, so instead:
+			OS.set_window_size(Vector2(1280, 720))
 		OS.set_window_position((screen_size * 0.5 - OS.get_window_size() * 0.5))
 	# Once off randomize so it is properly seeded
 	randomize()
