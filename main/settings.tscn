@@ -314,7 +314,6 @@ margin/top = 512.0
 margin/right = 1202.0
 margin/bottom = 564.0
 custom_fonts/font = SubResource( 4 )
-disabled = true
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
