@@ -6,12 +6,14 @@ onready var scene_container = get_node("scene_container")
 func _ready():
 	# Load previously saved settings
 	globals.load_settings()
+	globals.load_highscores()
 	OS.set_window_fullscreen(globals.FULL_SCREEN)
-	# Center the game window
+	# Check for high DPI when in windowed mode and adjust to 1080p by default
 	if !globals.FULL_SCREEN:
 		var screen_size = OS.get_screen_size()
-		var window_size = OS.get_window_size()
-		OS.set_window_position((screen_size * 0.5 - window_size * 0.5))
+		if screen_size.width > 1920 && screen_size.height > 1080 && OS.get_screen_dpi() > 200:
+			OS.set_window_size(Vector2(1920, 1080))
+		OS.set_window_position((screen_size * 0.5 - OS.get_window_size() * 0.5))
 	# Once off randomize so it is properly seeded
 	randomize()
 	# Splash screen is shown first, then main screen
@@ -67,6 +69,7 @@ func ship_select():
 # Load the game scene into the main scene container and start
 func start_game():
 	unload_current_scene()
+	globals.SCORE = 0
 	globals.CURRENT_STAGE = globals.STARTING_STAGE
 	get_node("title_container").get_child(0).hide()
 	current_scene = preload("res://game/game.tscn").instance()
@@ -84,7 +87,15 @@ func exit_game():
 		get_node("background_music").play()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_node("title_container").get_child(0).show()
-	load_menu()
+	# If you got a highscore then load entry scene, otherwise load menu
+	highscore_entry() if globals.is_highscore(globals.SCORE) > 0 else load_menu()
+
+# Load the highscore entry scene into the main container
+func highscore_entry():
+	unload_current_scene()
+	current_scene = preload("res://main/highscore_entry.tscn").instance()
+	current_scene.connect("back", self, "highscores", [], CONNECT_ONESHOT)
+	scene_container.add_child(current_scene)
 
 # Load the highscores scene into the main container
 func highscores():

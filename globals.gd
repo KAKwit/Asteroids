@@ -162,30 +162,47 @@ func load_settings():
 		CURRENT_BGM_MODE = int(settings.bgm_mode)
 		BGM_VOLUME = float(settings.bgm_volume)
 
+# Current score
+var SCORE = 0
+
 # Array of the top 10 scores with names
 var HIGHSCORES = []
 
 # Placeholder highscore name
-var HIGHSCHORE_PLACEHOLDER_NAME = "---"
+var HIGHSCHORE_PLACEHOLDER_NAME = "[placeholder]"
 
 # Path for storing highscores
 var highscores_file_path = "user://asteroids_highscores.bin"
+
+func save_highscores():
+	var file = File.new()
+	file.open(highscores_file_path, File.WRITE)
+	for i in range(HIGHSCORES.size()):
+		file.store_line(HIGHSCORES[i].to_json())
+	file.close()
 
 func load_highscores():
 	# Initialise with empty set of 10
 	HIGHSCORES = []
 	for i in range(10):
 		HIGHSCORES.append({ name = "---", score = 0 })
+	# Attempt to read from file
+	var file = File.new()
+	if file.file_exists(highscores_file_path):
+		file.open(highscores_file_path, File.READ)
+		for i in range(HIGHSCORES.size()):
+			HIGHSCORES[i].parse_json(file.get_line())
 
-# Returns true if the specified value is a new highscore
+# Returns position if the specified value is a new highscore
 func is_highscore(value):
-	var scores = HIGHSCORES
+	var scores = [] + HIGHSCORES
 	var new_score = { name = HIGHSCHORE_PLACEHOLDER_NAME, score = value}
 	scores.append(new_score)
 	scores.sort_custom(self, "highscore_sorter")
 	scores.invert()
 	scores.pop_back()
-	return scores.has(new_score)
+	var position = scores.find(new_score)
+	return position if position == -1 else position + 1
 
 # Add the specified values to highscores
 func add_highscore(name, value):

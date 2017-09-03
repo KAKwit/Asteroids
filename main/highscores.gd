@@ -8,8 +8,6 @@ func _ready():
 	back_button.grab_focus()
 	back_button.connect("pressed", self, "go_back")
 	globals.escape_button(back_button)
-	globals.load_highscores()
-	globals.add_highscore("KAK", 9938) # DEBUG
 	show_highscores()
 
 func go_back():

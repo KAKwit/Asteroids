@@ -14,8 +14,8 @@ font/font = ExtResource( 3 )
 [sub_resource type="DynamicFont" id=2]
 
 font/size = 28
-font/use_mipmaps = false
-font/use_filter = false
+font/use_mipmaps = true
+font/use_filter = true
 font/font = ExtResource( 3 )
 
 [sub_resource type="Animation" id=3]

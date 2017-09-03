@@ -5,7 +5,6 @@ signal exit_game # Exit after game over
 
 var player
 var countdown = 3
-var score = 0
 var game_over = false
 var ready_to_quit = false
 var player_explosions = 3
@@ -143,8 +142,8 @@ func spawn_enemy(for_stage):
 
 func enemy_explode(position, initial_strength):
 	# Update the score
-	score += initial_strength
-	score_display.get_node("label").set("text", "SCORE: %s" % score)
+	globals.SCORE += initial_strength
+	score_display.get_node("label").set("text", "SCORE: %s" % globals.SCORE)
 	# Play explosion noise and then particle explosion
 	get_node("sample_player").play("player_explode" + String(randi() % 3 + 1))
 	for i in range(3):
@@ -159,8 +158,8 @@ func enemy_explode(position, initial_strength):
 # Called when an asteroid has exploded
 func asteroid_explode(type, position, velocity, hit_velocity, initial_strength, has_power_up):
 	# Update the score
-	score += initial_strength
-	score_display.get_node("label").set("text", "SCORE: %s" % score)
+	globals.SCORE += initial_strength
+	score_display.get_node("label").set("text", "SCORE: %s" % globals.SCORE)
 	# Play explosion noise and then particle explosion
 	var new_type = globals.ASTEROID_BREAK_PATTERN[type]
 	get_node("sample_player").play("asteroid_explode" + String(randi() % 3 + 1))
