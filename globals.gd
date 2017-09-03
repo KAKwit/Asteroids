@@ -165,6 +165,9 @@ func load_settings():
 # Array of the top 10 scores with names
 var HIGHSCORES = []
 
+# Placeholder highscore name
+var HIGHSCHORE_PLACEHOLDER_NAME = "---"
+
 # Path for storing highscores
 var highscores_file_path = "user://asteroids_highscores.bin"
 
@@ -173,6 +176,27 @@ func load_highscores():
 	HIGHSCORES = []
 	for i in range(10):
 		HIGHSCORES.append({ name = "---", score = 0 })
+
+# Returns true if the specified value is a new highscore
+func is_highscore(value):
+	var scores = HIGHSCORES
+	var new_score = { name = HIGHSCHORE_PLACEHOLDER_NAME, score = value}
+	scores.append(new_score)
+	scores.sort_custom(self, "highscore_sorter")
+	scores.invert()
+	scores.pop_back()
+	return scores.has(new_score)
+
+# Add the specified values to highscores
+func add_highscore(name, value):
+	HIGHSCORES.append({ name = name, score = value })
+	HIGHSCORES.sort_custom(self, "highscore_sorter")
+	HIGHSCORES.invert()
+	HIGHSCORES.pop_back()
+
+# Sort highscore items by score
+func highscore_sorter(item1, item2):
+	return item1.score < item2.score
 
 # Common handler for menu selection in scenes
 func menu_select(node, event):
