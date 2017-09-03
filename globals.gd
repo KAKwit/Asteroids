@@ -110,7 +110,7 @@ var STAGE_SETTINGS = {
 var CURRENT_PLAYER_TYPE = PLAYER_TYPE.medium
 
 # Whether or not we should be in full screen
-var FULL_SCREEN = false
+var FULL_SCREEN = true
 
 # Starting stage preference
 var STARTING_STAGE = 1

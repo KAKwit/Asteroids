@@ -50,7 +50,7 @@ func set_bgm_volume(new_value):
 	emit_signal("bgm_volume_changed")
 
 func reset_settings():
-	globals.FULL_SCREEN = false
+	globals.FULL_SCREEN = true
 	globals.STARTING_STAGE = 1
 	globals.CURRENT_BGM_MODE = globals.BGM_MODE.menus_only
 	globals.BGM_VOLUME = 0.75
