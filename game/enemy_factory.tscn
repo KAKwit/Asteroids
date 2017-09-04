@@ -13,7 +13,7 @@
 [ext_resource path="res://assets/enemies/enemyBlack1.png" type="Texture" id=11]
 [ext_resource path="res://assets/enemies/enemyBlack3.png" type="Texture" id=12]
 
-[sub_resource type="SampleLibrary" id=3]
+[sub_resource type="SampleLibrary" id=1]
 
 samples/enemy = {
 "db": -5.0,
@@ -46,13 +46,13 @@ samples/enemy_shoot = {
 "sample": ExtResource( 6 )
 }
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 
 custom_solver_bias = 0.0
 radius = 3.05896
 height = 40.7535
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=3]
 
 custom_solver_bias = 0.0
 radius = 34.482
@@ -109,12 +109,10 @@ params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 color/color = Color( 1, 1, 1, 0.501961 )
 
-[node name="bullet_container" type="Node" parent="common"]
-
 [node name="sample_player" type="SamplePlayer" parent="common"]
 
 config/polyphony = 1
-config/samples = SubResource( 3 )
+config/samples = SubResource( 1 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -140,7 +138,7 @@ playback/speed = 1.0
 editor/display_folded = true
 transform/pos = Vector2( 480, 96 )
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 2.14044 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -156,7 +154,7 @@ texture = ExtResource( 8 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="common/reference_bullet"]
 
 transform/pos = Vector2( 0, 2.14044 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
@@ -173,7 +171,7 @@ autostart = true
 
 transform/pos = Vector2( 96, 96 )
 input/pickable = true
-shapes/0/shape = SubResource( 4 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -192,7 +190,7 @@ texture = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemies/easy"]
 
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
@@ -205,7 +203,7 @@ transform/rot = 180.0
 
 transform/pos = Vector2( 224, 96 )
 input/pickable = true
-shapes/0/shape = SubResource( 4 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -224,7 +222,7 @@ texture = ExtResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemies/medium"]
 
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
@@ -237,7 +235,7 @@ transform/rot = 180.0
 
 transform/pos = Vector2( 352, 96 )
 input/pickable = true
-shapes/0/shape = SubResource( 4 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -256,7 +254,7 @@ texture = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemies/hard"]
 
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 

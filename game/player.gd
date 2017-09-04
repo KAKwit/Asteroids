@@ -22,7 +22,6 @@ export(int, 100, 1000, 100) var max_velocity
 export(int, 50, 500, 5) var health
 
 onready var gun_timer = get_node("gun_timer")
-onready var bullet_container = get_node("bullet_container")
 onready var shield_regenerator = get_node("shield_regenerator")
 onready var bullet_factory = preload("player_bullet_factory.tscn").instance()
 onready var tween = get_node("tween")
@@ -36,11 +35,13 @@ var has_invulnerability = false setget set_invulnerability
 var initial_health
 var initial_gun_timer_wait_time
 var bullet_index
+var bullets_container
 
-func setup(position, bullet_index):
+func setup(position, bullet_index, bullets_container):
 	self.initial_health = health
 	self.position = position
 	self.bullet_index = bullet_index
+	self.bullets_container = bullets_container
 	self.connect("body_enter", self, "on_body_enter")
 	set_pos(position)
 
@@ -103,7 +104,7 @@ func make_bullet(rotation):
 	var bullet = bullet_factory.generate_bullet(bullet_index)
 	get_node("sample_player").play("player_shoot" + String(bullet_index + 1))
 	bullet.setup(rotation, get_node("muzzle").get_global_pos(), velocity)
-	bullet_container.add_child(bullet)
+	bullets_container.add_child(bullet)
 	bullet.start()
 
 func on_body_enter(body):

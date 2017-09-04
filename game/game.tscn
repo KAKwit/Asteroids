@@ -169,6 +169,8 @@ modulate = Color( 0.203584, 0.847656, 0.149002, 1 )
 
 [node name="player_container" type="Node" parent="."]
 
+[node name="bullets_container" type="Node" parent="."]
+
 [node name="explosions_container" type="Node" parent="."]
 
 [node name="spawn_locations" type="Node" parent="."]

@@ -14,17 +14,18 @@ var is_exploding = false
 var direction = 1
 var first_time = true
 var reference_bullet
+var bullets_container
 
 onready var puff = get_node("puff")
 onready var tween = get_node("tween")
 onready var sample_player = get_node("sample_player")
-onready var bullet_container = get_node("bullet_container")
 
-func setup(type, player):
+func setup(type, player, bullets_container):
 	self.type = type
 	self.player = weakref(player)
 	self.velocity = Vector2(rand_range(150, 200), 0).rotated(rand_range(0, 2 * PI))
 	self.initial_strength = strength
+	self.bullets_container = bullets_container
 	add_to_group("enemies")
 
 func start():
@@ -105,5 +106,5 @@ func make_bullet(rotation):
 	var bullet = reference_bullet.duplicate()
 	sample_player.play("enemy_shoot")
 	bullet.setup(rotation, get_node("muzzle").get_global_pos(), velocity)
-	bullet_container.add_child(bullet)
+	bullets_container.add_child(bullet)
 	bullet.start()

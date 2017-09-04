@@ -151,8 +151,6 @@ visibility/opacity = 0.0
 transform/scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
-[node name="bullet_container" type="Node" parent="common"]
-
 [node name="sample_player" type="SamplePlayer" parent="common"]
 
 config/polyphony = 1

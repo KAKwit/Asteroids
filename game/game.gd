@@ -19,6 +19,7 @@ onready var power_up_container = get_node("power_up_container")
 onready var asteroid_container = get_node("asteroid_container")
 onready var enemy_container = get_node("enemy_container")
 onready var player_container = get_node("player_container")
+onready var bullets_container = get_node("bullets_container")
 onready var explosions_container = get_node("explosions_container")
 onready var spawn_locations = get_node("spawn_locations")
 onready var countdown_timer = get_node("countdown_timer")
@@ -102,7 +103,7 @@ func _unhandled_input(event):
 
 func load_player(player_type):
 	player = player_factory.generate_player(player_type)
-	player.setup(screen_size / 2, player_type)
+	player.setup(screen_size / 2, player_type, bullets_container)
 	player.connect("explode", self, "player_explode")
 	player.connect("updated_health", self, "player_updated_health")
 	player_updated_health(true)
@@ -133,7 +134,7 @@ func spawn_enemy(for_stage):
 	enemies_spawned += 1
 	var enemy = enemy_factory.generate_enemy(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type)
 	enemy.connect("explode", self, "enemy_explode")
-	enemy.setup(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type, player)
+	enemy.setup(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemy_type, player, bullets_container)
 	enemy_container.add_child(enemy)
 	enemy.start()
 	# Queue next enemy if applicable
