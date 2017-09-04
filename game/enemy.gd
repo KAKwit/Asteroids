@@ -94,12 +94,12 @@ func shoot():
 		if !first_time:
 			for i in [-0.05, 0.05]:
 				make_bullet(get_rot() + i)
-		tween.interpolate_callback(self, rand_range(2, 4), "shoot")
+		tween.interpolate_callback(self, rand_range(1, 3), "shoot")
 	if type == globals.ENEMY_TYPE.hard:
 		if !first_time:
 			for i in [-0.1, 0, 0.1]:
 				make_bullet(get_rot() + i)
-		tween.interpolate_callback(self, rand_range(2, 4), "shoot")
+		tween.interpolate_callback(self, rand_range(1, 3), "shoot")
 	tween.start()
 
 func make_bullet(rotation):

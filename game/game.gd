@@ -113,7 +113,7 @@ func load_player(player_type):
 func load_initial_asteroids():
 	var power_ups_count = globals.STAGE_SETTINGS[globals.CURRENT_STAGE].power_ups
 	if globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemies > 0:
-		tween.interpolate_callback(self, rand_range(30, 60), "spawn_enemy", globals.CURRENT_STAGE)
+		tween.interpolate_callback(self, rand_range(20, 50), "spawn_enemy", globals.CURRENT_STAGE)
 	for i in range(globals.CURRENT_STAGE):
 		var has_power_up = (randi() % 2 + 1 == 1 && power_ups_count > 0) || power_ups_count + 1 > globals.CURRENT_STAGE - i
 		power_ups_count = power_ups_count - 1 if has_power_up else power_ups_count
@@ -139,7 +139,7 @@ func spawn_enemy(for_stage):
 	enemy.start()
 	# Queue next enemy if applicable
 	if enemies_spawned < globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemies:
-		tween.interpolate_callback(self, rand_range(30, 60), "spawn_enemy", globals.CURRENT_STAGE)
+		tween.interpolate_callback(self, rand_range(20, 50), "spawn_enemy", globals.CURRENT_STAGE)
 
 func enemy_explode(position, initial_strength):
 	# Update the score
