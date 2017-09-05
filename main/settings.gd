@@ -3,7 +3,6 @@ extends Container
 signal back
 signal bgm_set
 signal bgm_volume_changed
-signal reset_highscores
 
 onready var back_button = get_node("back_button")
 onready var checkbox_fullscreen = get_node("column_b/checkbox_fullscreen")
@@ -11,7 +10,6 @@ onready var option_starting_stage = get_node("column_b/option_starting_stage")
 onready var option_bgm = get_node("column_b/option_bgm")
 onready var slider_bgm_volume = get_node("column_b/slider_bgm_volume")
 onready var reset_settings = get_node("reset_settings")
-onready var reset_highscores = get_node("reset_highscores")
 
 func _ready():
 	back_button.grab_focus()
@@ -30,7 +28,6 @@ func _ready():
 	slider_bgm_volume.set_value(globals.BGM_VOLUME)
 	slider_bgm_volume.connect("value_changed", self, "set_bgm_volume")
 	reset_settings.connect("pressed", self, "reset_settings")
-	reset_highscores.connect("pressed", self, "reset_highscores")
 	globals.escape_button(back_button)
 
 func toggle_fullscreen(pressed):
@@ -65,14 +62,6 @@ func reset_settings():
 	slider_bgm_volume.set_value(globals.BGM_VOLUME)
 	emit_signal("bgm_set")
 	emit_signal("bgm_volume_changed")
-
-func reset_highscores():
-	globals.HIGHSCORES = []
-	for i in range(10):
-		globals.HIGHSCORES.append({ name = "---", score = 0 })
-	globals.save_highscores()
-	globals.play_pressed()
-	globals.menu_select(self, "reset_highscores")
 
 func go_back():
 	globals.menu_select(self, "back")

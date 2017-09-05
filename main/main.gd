@@ -96,6 +96,7 @@ func highscores():
 	unload_current_scene()
 	current_scene = preload("res://main/highscores.tscn").instance()
 	current_scene.connect("back", self, "load_menu", [], CONNECT_ONESHOT)
+	current_scene.connect("reset_highscores", self, "highscores")
 	scene_container.add_child(current_scene)
 
 # Load the settings scene into the main container
@@ -105,7 +106,6 @@ func game_settings():
 	current_scene.connect("back", self, "load_menu", [], CONNECT_ONESHOT)
 	current_scene.connect("bgm_set", self, "bgm_set")
 	current_scene.connect("bgm_volume_changed", self, "bgm_volume_changed")
-	current_scene.connect("reset_highscores", self, "highscores")
 	scene_container.add_child(current_scene)
 
 func bgm_set():
