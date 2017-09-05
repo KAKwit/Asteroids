@@ -89,30 +89,28 @@ margin/left = 16.0
 margin/top = 16.0
 margin/right = 1144.0
 margin/bottom = 53.0
-text = "You got a new highest score!"
+custom_colors/font_color = Color( 0.533333, 0.533333, 0.533333, 1 )
+text = "You got a new high score!"
 align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="label_details" type="Label" parent="panel"]
+[node name="label_details" type="RichTextLabel" parent="panel"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 16.0
-margin/top = 64.0
+margin/top = 70.0
 margin/right = 1144.0
-margin/bottom = 101.0
-custom_colors/font_color = Color( 0.666667, 0.666667, 0.666667, 1 )
-text = "You made it to position #0 with a score of 0000"
-align = 1
-valign = 1
+margin/bottom = 107.0
+bbcode/enabled = true
+bbcode/bbcode = "[center][color=#888888]You made it to position[/color] #1 [color=#888888]with a score of[/color] 100[/center]"
+visible_characters = -1
 percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="label_help" type="Label" parent="panel"]
 
@@ -124,6 +122,7 @@ margin/left = 16.0
 margin/top = 112.0
 margin/right = 1144.0
 margin/bottom = 149.0
+custom_colors/font_color = Color( 0.533333, 0.533333, 0.533333, 1 )
 text = "Enter your initials"
 align = 1
 valign = 1

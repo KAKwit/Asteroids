@@ -13,7 +13,7 @@ func _ready():
 	okay_button.connect("pressed", self, "go_back")
 	# Set the detail line
 	var position = globals.is_highscore(globals.SCORE)
-	label_details.set_text("You made it to position #%s with a score of %s" % [position, globals.SCORE])
+	label_details.set("bbcode/bbcode", "[center][color=#888888]You made it to position[/color] #%s [color=#888888]with a score of[/color] %s[/center]" % [position, globals.SCORE])
 
 func text_changed(text):
 	okay_button.set("disabled", text.length() == 0)
