@@ -23,6 +23,6 @@ func text_entered(text):
 		go_back()
 
 func go_back():
-	globals.add_highscore(line_edit.get_text(), globals.SCORE)
+	globals.add_highscore(line_edit.get_text(), globals.ACTUAL_STAGE, globals.CURRENT_PLAYER_TYPE, globals.SCORE)
 	globals.save_highscores()
 	globals.menu_select(self, "back")

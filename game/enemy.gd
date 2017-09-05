@@ -99,7 +99,10 @@ func shoot():
 		if !first_time:
 			for i in [-0.1, 0, 0.1]:
 				make_bullet(get_rot() + i)
-		tween.interpolate_callback(self, rand_range(1, 3), "shoot")
+		if globals.ACTUAL_STAGE > 8:
+			tween.interpolate_callback(self, rand_range(0.5, 1.5), "shoot")
+		else:
+			tween.interpolate_callback(self, rand_range(1, 3), "shoot")
 	tween.start()
 
 func make_bullet(rotation):

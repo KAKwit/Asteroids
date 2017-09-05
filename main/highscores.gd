@@ -23,13 +23,15 @@ func show_highscores():
 		# Set the values for the score
 		scorebox.get_node("name").set_text(globals.HIGHSCORES[i].name)
 		scorebox.get_node("score").set_text(String(globals.HIGHSCORES[i].score))
+		scorebox.get_node("stage").set_text(globals.HIGHSCORES[i].stage)
+		scorebox.get_node("ship").set_text(globals.HIGHSCORES[i].ship)
 		tween.interpolate_property(scorebox, "visibility/opacity", 0, 1, (i + 1) * 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 
 func reset_highscores():
 	globals.HIGHSCORES = []
 	for i in range(10):
-		globals.HIGHSCORES.append({ name = "---", score = 0 })
+		globals.HIGHSCORES.append({ name = "---", score = 0, stage = "", ship = "" })
 	globals.save_highscores()
 	globals.play_pressed()
 	globals.menu_select(self, "reset_highscores")

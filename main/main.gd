@@ -65,6 +65,7 @@ func start_game():
 	unload_current_scene()
 	globals.SCORE = 0
 	globals.CURRENT_STAGE = globals.STARTING_STAGE
+	globals.ACTUAL_STAGE = globals.CURRENT_STAGE
 	get_node("title_container").get_child(0).hide()
 	current_scene = preload("res://game/game.tscn").instance()
 	current_scene.connect("exit_game", self, "exit_game", [], CONNECT_ONESHOT)

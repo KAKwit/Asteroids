@@ -118,6 +118,9 @@ var STARTING_STAGE = 1
 # The current stage
 var CURRENT_STAGE = STARTING_STAGE
 
+# Actual stage can go above 8, but otherwise stage is limited
+var ACTUAL_STAGE = STARTING_STAGE
+
 # Background music modes - menus only, always, or never
 enum BGM_MODE { menus_only = 0, always = 1, never = 2 }
 
@@ -185,7 +188,7 @@ func load_highscores():
 	# Initialise with empty set of 10
 	HIGHSCORES = []
 	for i in range(10):
-		HIGHSCORES.append({ name = "---", score = 0 })
+		HIGHSCORES.append({ name = "---", stage = "", ship = "", score = 0 })
 	# Attempt to read from file
 	var file = File.new()
 	if file.file_exists(highscores_file_path):
@@ -205,8 +208,15 @@ func is_highscore(value):
 	return position if position == -1 else position + 1
 
 # Add the specified values to highscores
-func add_highscore(name, value):
-	HIGHSCORES.append({ name = name, score = value })
+func add_highscore(name, stage, ship, value):
+	var ship_text = ""
+	if ship == PLAYER_TYPE.light:
+		ship_text = "Light"
+	if ship == PLAYER_TYPE.medium:
+		ship_text = "Medium"
+	if ship == PLAYER_TYPE.heavy:
+		ship_text = "Heavy"
+	HIGHSCORES.append({ name = name, stage = "Stage %s" % stage, ship = ship_text, score = value })
 	HIGHSCORES.sort_custom(self, "highscore_sorter")
 	HIGHSCORES.invert()
 	HIGHSCORES.pop_back()

@@ -1,5 +1,8 @@
 extends Area2D
 
+# FOR DEBUG
+var invincible = false
+
 signal explode
 signal updated_health
 
@@ -117,7 +120,7 @@ func get_shot(bullet_strength, hit_velocity, position):
 	do_damage(bullet_strength)
 
 func do_damage(strength):
-	if has_invulnerability:
+	if has_invulnerability || invincible:
 		return
 	health = max(health - strength, 0)
 	emit_signal("updated_health")

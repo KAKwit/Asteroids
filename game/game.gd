@@ -51,7 +51,7 @@ func start_stage():
 	if game_over:
 		return
 	if countdown == 3:
-		stage_display.get_node("label").set("text", "STAGE: %s" % globals.CURRENT_STAGE)
+		stage_display.get_node("label").set("text", "STAGE: %s" % globals.ACTUAL_STAGE)
 		globals.show_planet(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].planet)
 	if countdown > 0:
 		# We count down 3 seconds before asteroids appear to give time to breathe
@@ -64,7 +64,7 @@ func start_stage():
 			tween.interpolate_property(safe_zone, "transform/rot", 20, 0, 2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 2)
 			tween.start()
 		countdown_display.show()
-		countdown_display.get_node("label").set("text", "STAGE: %s, GET READY ... %s" % [globals.CURRENT_STAGE, countdown])
+		countdown_display.get_node("label").set("text", "STAGE: %s, GET READY ... %s" % [globals.ACTUAL_STAGE, countdown])
 		countdown_timer.start()
 	else:
 		# Once countdown is finished we can load the asteroids
@@ -139,7 +139,10 @@ func spawn_enemy(for_stage):
 	enemy.start()
 	# Queue next enemy if applicable
 	if enemies_spawned < globals.STAGE_SETTINGS[globals.CURRENT_STAGE].enemies:
-		tween.interpolate_callback(self, rand_range(20, 50), "spawn_enemy", globals.CURRENT_STAGE)
+		if globals.ACTUAL_STAGE > 8:
+			tween.interpolate_callback(self, rand_range(10, 30), "spawn_enemy", globals.CURRENT_STAGE)
+		else:
+			tween.interpolate_callback(self, rand_range(20, 50), "spawn_enemy", globals.CURRENT_STAGE)
 
 func enemy_explode(position, initial_strength):
 	# Update the score
@@ -281,6 +284,7 @@ func _power_up_lifetime_timeout(power_up, type):
 func next_stage():
 	enemies_spawned = 0
 	globals.CURRENT_STAGE = clamp(globals.CURRENT_STAGE + 1, 1, 8)
+	globals.ACTUAL_STAGE += 1
 	start_stage()
 
 func game_over():
