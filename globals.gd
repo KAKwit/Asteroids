@@ -205,7 +205,7 @@ func is_highscore(value):
 	scores.invert()
 	scores.pop_back()
 	var position = scores.find(new_score)
-	return position if position == -1 else position + 1
+	return -1 if position == -1 || value == 0 else position + 1
 
 # Add the specified values to highscores
 func add_highscore(name, stage, ship, value):
