@@ -39,7 +39,8 @@ var STAGE_SETTINGS = {
 		enemies = 0,
 		power_ups = 0,
 		puff_color = "80795636",
-		modulate_color = "ffffff"
+		modulate_color = "ffffff",
+		background_tint = "ffffff"
 	},
 	2: {
 		planet = 1,
@@ -48,7 +49,8 @@ var STAGE_SETTINGS = {
 		enemies = 0,
 		power_ups = 0,
 		puff_color = "80795636",
-		modulate_color = "ffffff"
+		modulate_color = "ffffff",
+		background_tint = "ffffff"
 	},
 	3: {
 		planet = 2,
@@ -57,7 +59,8 @@ var STAGE_SETTINGS = {
 		enemies = 1,
 		power_ups = 1,
 		puff_color = "808c9db1",
-		modulate_color = "709cd0"
+		modulate_color = "709cd0",
+		background_tint = "ccccff"
 	},
 	4: {
 		planet = 2,
@@ -66,7 +69,8 @@ var STAGE_SETTINGS = {
 		enemies = 2,
 		power_ups = 2,
 		puff_color = "808c9db1",
-		modulate_color = "709cd0"
+		modulate_color = "709cd0",
+		background_tint = "ccccff"
 	},
 	5: {
 		planet = 3,
@@ -75,7 +79,8 @@ var STAGE_SETTINGS = {
 		enemies = 1,
 		power_ups = 3,
 		puff_color = "8079917d",
-		modulate_color = "89b48e"
+		modulate_color = "89b48e",
+		background_tint = "ccffcc"
 	},
 	6: {
 		planet = 3,
@@ -84,7 +89,8 @@ var STAGE_SETTINGS = {
 		enemies = 2,
 		power_ups = 4,
 		puff_color = "8079917d",
-		modulate_color = "89b48e"
+		modulate_color = "89b48e",
+		background_tint = "ccffcc"
 	},
 	7: {
 		planet = 4,
@@ -93,7 +99,8 @@ var STAGE_SETTINGS = {
 		enemies = 2,
 		power_ups = 5,
 		puff_color = "80ec6474",
-		modulate_color = "f5a2a6"
+		modulate_color = "f5a2a6",
+		background_tint = "ffcccc"
 	},
 	8: {
 		planet = 4,
@@ -102,7 +109,8 @@ var STAGE_SETTINGS = {
 		enemies = 3,
 		power_ups = 6,
 		puff_color = "80ec6474",
-		modulate_color = "f5a2a6"
+		modulate_color = "f5a2a6",
+		background_tint = "ffcccc"
 	}
 }
 
@@ -243,6 +251,10 @@ func play_pressed():
 # Show the specified planet
 func show_planet(number):
 	get_node("/root/main/planets_container/planets").show_planet(number)
+
+# Tint the background starfield
+func tint_background(color):
+	get_node("/root/main/background_container/background").tint_background(color)
 
 # Wrap (teleport) the specified node when it moves off the screen.
 func screen_wrap(node):

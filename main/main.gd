@@ -44,6 +44,7 @@ func load_title():
 func load_menu():
 	unload_current_scene()
 	globals.show_planet(1)
+	globals.tint_background("ffffff")
 	current_scene = preload("res://main/menu.tscn").instance()
 	current_scene.connect("start_game", self, "ship_select", [], CONNECT_ONESHOT)
 	current_scene.connect("highscores", self, "highscores", [], CONNECT_ONESHOT)

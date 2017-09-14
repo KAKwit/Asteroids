@@ -53,6 +53,7 @@ func start_stage():
 	if countdown == 3:
 		stage_display.get_node("label").set("text", "STAGE: %s" % globals.ACTUAL_STAGE)
 		globals.show_planet(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].planet)
+		globals.tint_background(globals.STAGE_SETTINGS[globals.CURRENT_STAGE].background_tint)
 	if countdown > 0:
 		# We count down 3 seconds before asteroids appear to give time to breathe
 		set_fixed_process(false)
