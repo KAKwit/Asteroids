@@ -41,6 +41,7 @@ autostart = true
 
 [node name="light" type="Area2D" parent="bullets"]
 
+editor/display_folded = true
 transform/pos = Vector2( 64, 64 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
@@ -54,7 +55,7 @@ script/script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
-strength = 25
+strength = 30
 
 [node name="Sprite" type="Sprite" parent="bullets/light"]
 
