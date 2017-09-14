@@ -93,13 +93,11 @@ custom_constants/line_separation = 5
 bbcode/enabled = true
 bbcode/bbcode = "[b]Made in Godot Engine by KAKwit[/b]
 
+[color=gray]Controls are [/color]WASD[color=gray] or [/color]cursor keys [color=gray]to move and [/color]space[color=gray] to fire (or you can use a [/color]controller[color=gray]).[/color]
+
 [color=gray]The starting point for this project was the excellent[/color] [url=https://www.youtube.com/playlist?list=PLsk-HSGFjnaGcjiD8y9-U_C0rB5kpDX5s]Space Rocks! - A complete game in Godot Game Engine[/url][color=gray] tutorial series on YouTube by Chris Bradfield (though this has subsequently diverged quite a bit).[/color]
 
-[color=gray]Artwork is from the Space Shooter Redux pack from[/color] [url=http://www.kenney.nl]Kenney[/url][color=gray] plus various bits and pieces I managed to cobble together using[/color] [url=https://flyingmeat.com/acorn/]Acorn[/url][color=gray] image editor from Flying Meat. Planet images are from NASA.[/color]
-
-[color=gray]Background music is[/color] [url=http://opengameart.org/users/3uhox]SimpleBeat[/url][color=gray] from 3uhox on OpenGameArt.org.[/color]
-
-[color=gray]Noises were created with[/color] [url=http://www.bfxr.net]BFXR[/url][color=gray].[/color]
+[color=gray]Artwork is from the Space Shooter Redux pack from[/color] [url=http://www.kenney.nl]Kenney[/url][color=gray] plus various bits and pieces I managed to cobble together using[/color] [url=https://flyingmeat.com/acorn/]Acorn[/url][color=gray] image editor from Flying Meat. Planet images are from NASA.  Background music is[/color] [url=http://opengameart.org/users/3uhox]SimpleBeat[/url][color=gray] from 3uhox on OpenGameArt.org.  Noises were created with[/color] [url=http://www.bfxr.net]BFXR[/url][color=gray].[/color]
 "
 visible_characters = -1
 percent_visible = 1.0
