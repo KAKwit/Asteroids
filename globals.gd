@@ -2,6 +2,9 @@ extends Node
 
 # Globals - set to autoload as a singleton in project settings.
 
+# Tips shown on the menu scene
+var current_tip = -1
+
 # Player type - light, medium, heavy
 enum PLAYER_TYPE { light = 0, medium = 1, heavy = 2 }
 
@@ -27,7 +30,7 @@ var POWER_UPS = {
 	POWER_UP_TYPE.health: { timeout = 0 },
 	POWER_UP_TYPE.multi_shot: { timeout = 30 },
 	POWER_UP_TYPE.rapid_fire: { timeout = 30 },
-	POWER_UP_TYPE.invulnerability: { timeout = 30 }
+	POWER_UP_TYPE.invulnerability: { timeout = 20 }
 }
 
 # Settings for each stage
