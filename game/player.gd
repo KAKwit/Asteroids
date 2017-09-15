@@ -22,10 +22,11 @@ export(int, 100, 200, 5) var reverse_thrust
 export(int, 100, 1000, 100) var max_velocity
 
 # Health or shields
-export(int, 50, 500, 5) var health
+export(int, 50, 500, 5) var health setget set_health
 
 onready var gun_timer = get_node("gun_timer")
 onready var shield_regenerator = get_node("shield_regenerator")
+onready var damage_sprites = get_node("damage_sprites")
 onready var bullet_factory = preload("player_bullet_factory.tscn").instance()
 onready var tween = get_node("tween")
 
@@ -35,7 +36,7 @@ var velocity = Vector2()
 var acceleration = Vector2()
 var has_multi_shot = false
 var has_invulnerability = false setget set_invulnerability
-var initial_health
+var initial_health = -1
 var initial_gun_timer_wait_time
 var bullet_index
 var bullets_container
@@ -92,7 +93,7 @@ func _fixed_process(delta):
 		shoot()
 
 func regenerate_shield():
-	health = min(health + 1, initial_health)
+	set_health(min(health + 1, initial_health))
 	emit_signal("updated_health")
 
 func shoot():
@@ -122,7 +123,7 @@ func get_shot(bullet_strength, hit_velocity, position):
 func do_damage(strength):
 	if has_invulnerability || invincible:
 		return
-	health = max(health - strength, 0)
+	set_health(max(health - strength, 0))
 	emit_signal("updated_health")
 	if health < initial_health / 2:
 		# Show shield and glow red when health less than 50%
@@ -147,3 +148,10 @@ func set_invulnerability(new_value):
 
 func destroy():
 	emit_signal("explode", position)
+
+func set_health(new_value):
+	health = new_value
+	if initial_health > 0:
+		damage_sprites.get_node("damage1").show() if health < initial_health else damage_sprites.get_node("damage1").hide()
+		damage_sprites.get_node("damage2").show() if health < initial_health * 0.66 else damage_sprites.get_node("damage2").hide()
+		damage_sprites.get_node("damage3").show() if health < initial_health * 0.33 else damage_sprites.get_node("damage3").hide()

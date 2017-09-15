@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=1]
+[gd_scene load_steps=40 format=1]
 
 [ext_resource path="res://game/player_factory.gd" type="Script" id=1]
 [ext_resource path="res://assets/players/shield.png" type="Texture" id=2]
@@ -11,8 +11,17 @@
 [ext_resource path="res://assets/sounds/player_shoot3.wav" type="Sample" id=9]
 [ext_resource path="res://game/player.gd" type="Script" id=10]
 [ext_resource path="res://assets/players/player_light.png" type="Texture" id=11]
-[ext_resource path="res://assets/players/player_medium.png" type="Texture" id=12]
-[ext_resource path="res://assets/players/player_heavy.png" type="Texture" id=13]
+[ext_resource path="res://assets/players/player_light_damage1.png" type="Texture" id=12]
+[ext_resource path="res://assets/players/player_light_damage2.png" type="Texture" id=13]
+[ext_resource path="res://assets/players/player_light_damage3.png" type="Texture" id=14]
+[ext_resource path="res://assets/players/player_medium.png" type="Texture" id=15]
+[ext_resource path="res://assets/players/player_medium_damage1.png" type="Texture" id=16]
+[ext_resource path="res://assets/players/player_medium_damage2.png" type="Texture" id=17]
+[ext_resource path="res://assets/players/player_medium_damage3.png" type="Texture" id=18]
+[ext_resource path="res://assets/players/player_heavy.png" type="Texture" id=19]
+[ext_resource path="res://assets/players/player_heavy_damage1.png" type="Texture" id=20]
+[ext_resource path="res://assets/players/player_heavy_damage2.png" type="Texture" id=21]
+[ext_resource path="res://assets/players/player_heavy_damage3.png" type="Texture" id=22]
 
 [sub_resource type="SampleLibrary" id=1]
 
@@ -188,6 +197,7 @@ autostart = true
 "player",
 ]]
 
+editor/display_folded = true
 transform/pos = Vector2( 96, 96 )
 input/pickable = true
 shapes/0/shape = SubResource( 2 )
@@ -207,6 +217,9 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 10 )
+__meta__ = {
+"_edit_group_": true
+}
 rotation_speed = 3.5
 friction = 0.25
 forward_thrust = 600
@@ -265,6 +278,31 @@ wait_time = 0.2
 one_shot = true
 autostart = false
 
+[node name="damage_sprites" type="Node2D" parent="players/light"]
+
+editor/display_folded = true
+
+[node name="damage1" type="Sprite" parent="players/light/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 12 )
+modulate = Color( 0.333333, 0.2, 0.2, 1 )
+
+[node name="damage2" type="Sprite" parent="players/light/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 13 )
+modulate = Color( 0.333333, 0.333333, 0.333333, 1 )
+
+[node name="damage3" type="Sprite" parent="players/light/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 14 )
+modulate = Color( 0.333333, 0.2, 0.2, 1 )
+
 [node name="medium" type="Area2D" parent="players" groups=[
 "player",
 ]]
@@ -302,7 +340,7 @@ health = 75
 [node name="Sprite" type="Sprite" parent="players/medium"]
 
 transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 12 )
+texture = ExtResource( 15 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="players/medium"]
 
@@ -350,6 +388,31 @@ wait_time = 0.4
 one_shot = true
 autostart = false
 
+[node name="damage_sprites" type="Node2D" parent="players/medium"]
+
+editor/display_folded = true
+
+[node name="damage1" type="Sprite" parent="players/medium/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 16 )
+modulate = Color( 0.333333, 0.2, 0.2, 1 )
+
+[node name="damage2" type="Sprite" parent="players/medium/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 17 )
+modulate = Color( 0.333333, 0.2, 0.2, 1 )
+
+[node name="damage3" type="Sprite" parent="players/medium/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 18 )
+modulate = Color( 0.333333, 0.2, 0.2, 1 )
+
 [node name="heavy" type="Area2D" parent="players" groups=[
 "player",
 ]]
@@ -390,7 +453,7 @@ health = 100
 [node name="Sprite" type="Sprite" parent="players/heavy"]
 
 transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 13 )
+texture = ExtResource( 19 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="players/heavy"]
 
@@ -437,5 +500,30 @@ process_mode = 1
 wait_time = 0.6
 one_shot = true
 autostart = false
+
+[node name="damage_sprites" type="Node2D" parent="players/heavy"]
+
+editor/display_folded = true
+
+[node name="damage1" type="Sprite" parent="players/heavy/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 20 )
+modulate = Color( 0.333333, 0.2, 0.2, 1 )
+
+[node name="damage2" type="Sprite" parent="players/heavy/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 21 )
+modulate = Color( 0.333333, 0.2, 0.2, 1 )
+
+[node name="damage3" type="Sprite" parent="players/heavy/damage_sprites"]
+
+visibility/visible = false
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 22 )
+modulate = Color( 0.333333, 0.2, 0.2, 1 )
 
 
