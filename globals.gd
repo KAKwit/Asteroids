@@ -266,8 +266,10 @@ func screen_wrap(node):
 	position.x = screen_size.width + halfSpriteSize.width if position.x < 0 - halfSpriteSize.width else position.x
 	position.y = 0 - halfSpriteSize.height if position.y > screen_size.height + halfSpriteSize.height else position.y
 	position.y = screen_size.height + halfSpriteSize.height if position.y < 0 - halfSpriteSize.height else position.y
-	if position != originalPosition:
+	var wrapped = position != originalPosition
+	if wrapped:
 		node.set_pos(position)
+	return wrapped
 
 # Sets up a button to use escape as a shortcut
 func escape_button(button):

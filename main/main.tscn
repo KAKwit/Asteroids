@@ -30,6 +30,7 @@ samples/pressed = {
 
 [node name="main" type="Node"]
 
+editor/display_folded = true
 script/script = ExtResource( 1 )
 
 [node name="background_container" type="Node" parent="."]
